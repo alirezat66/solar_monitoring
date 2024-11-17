@@ -3,10 +3,15 @@ import 'package:solar_monitoring/core/network/network_client.dart';
 import 'package:dio/dio.dart';
 
 class DioClient implements NetworkClient {
-  final Dio _dio;
+  Dio _dio;
 
   DioClient({required DioOptions options})
       : _dio = Dio(options.toBaseOptions());
+
+  // Setter for testing purposes
+  set dio(Dio dio) {
+    _dio = dio;
+  }
 
   @override
   Future<T> get<T>({
