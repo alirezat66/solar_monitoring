@@ -1,16 +1,12 @@
+import 'package:solar_monitoring/core/network/dio/dio_option.dart';
 import 'package:solar_monitoring/core/network/network_client.dart';
 import 'package:dio/dio.dart';
 
 class DioClient implements NetworkClient {
   final Dio _dio;
 
-  DioClient({required String baseUrl})
-      : _dio = Dio(BaseOptions(
-          baseUrl: baseUrl,
-          connectTimeout: const Duration(seconds: 5),
-          receiveTimeout: const Duration(seconds: 3),
-          headers: {'Content-Type': 'application/json'},
-        ));
+  DioClient({required DioOptions options})
+      : _dio = Dio(options.toBaseOptions());
 
   @override
   Future<T> get<T>({
