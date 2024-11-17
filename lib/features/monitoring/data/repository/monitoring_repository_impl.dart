@@ -1,7 +1,9 @@
+import 'package:solar_monitoring/core/constants/api_constants.dart';
 import 'package:solar_monitoring/core/network/network_client.dart';
 import 'package:solar_monitoring/features/monitoring/data/model/energy_type.dart';
 import 'package:solar_monitoring/features/monitoring/data/model/monitoring_model.dart';
 import 'package:solar_monitoring/features/monitoring/data/repository/monitoring_repository.dart';
+import 'package:solar_monitoring/core/extension/date_extension.dart';
 
 class MonitoringRepositoryImpl implements MonitoringRepository {
   final NetworkClient client;
@@ -14,9 +16,9 @@ class MonitoringRepositoryImpl implements MonitoringRepository {
     required EnergyType type,
   }) async {
     final response = await client.get<List<dynamic>>(
-      path: '/monitoring',
+      path: apiMonitoringPath,
       queryParameters: {
-        'date': date,
+        'date': date.toQueryDateString(),
         'type': type.queryParam,
       },
     );
