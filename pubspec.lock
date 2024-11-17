@@ -438,6 +438,13 @@ packages:
       relative: true
     source: path
     version: "0.0.1"
+  monitoring_repository:
+    dependency: "direct main"
+    description:
+      path: "packages/monitoring_repository"
+      relative: true
+    source: path
+    version: "0.0.1"
   package_config:
     dependency: transitive
     description:

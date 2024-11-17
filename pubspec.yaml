@@ -17,7 +17,9 @@ dependencies:
   monitoring_core:
     path: packages/monitoring_core
   monitoring_models:
-    path: packages/monitoring_models  
+    path: packages/monitoring_models 
+  monitoring_repository:
+    path: packages/monitoring_repository   
 dev_dependencies:
   flutter_test:
     sdk: flutter

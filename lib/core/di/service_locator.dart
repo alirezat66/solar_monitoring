@@ -1,5 +1,6 @@
 import 'package:get_it/get_it.dart';
 import 'package:monitoring_core/monitoring_core.dart';
+import 'package:monitoring_repository/monitoring_repository.dart';
 import 'package:solar_monitoring/core/constants/api_constants.dart';
 
 final getIt = GetIt.instance;
@@ -12,5 +13,9 @@ Future<void> initializeDependencies() async {
 
   getIt.registerLazySingleton<NetworkClient>(
     () => DioClient(options: getIt<DioOptions>()),
+  );
+
+  getIt.registerLazySingleton<MonitoringRepository>(
+    () => MonitoringRepositoryImpl(client: getIt()),
   );
 }

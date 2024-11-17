@@ -1,13 +1,13 @@
 // test/features/monitoring/repositories/monitoring_repository_test.dart
 import 'dart:convert';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/mockito.dart';
 import 'package:mockito/annotations.dart';
+import 'package:mockito/mockito.dart';
 import 'package:monitoring_core/monitoring_core.dart';
 import 'package:monitoring_models/monitoring_models.dart';
-import 'package:solar_monitoring/features/monitoring/data/repository/monitoring_repository_impl.dart';
+import 'package:monitoring_repository/monitoring_repository.dart';
 
-import '../../../../fixtures/fixture_reader.dart';
+import '../../../../test/fixtures/fixture_reader.dart';
 import 'monitoring_repository_impl_test.mocks.dart';
 
 @GenerateMocks([NetworkClient])

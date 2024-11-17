@@ -1,12 +1,12 @@
 import 'package:monitoring_core/monitoring_core.dart';
 import 'package:monitoring_models/monitoring_models.dart';
-import 'package:solar_monitoring/core/constants/api_constants.dart';
-import 'package:solar_monitoring/features/monitoring/data/repository/monitoring_repository.dart';
+import 'package:monitoring_repository/src/monitoring_repository.dart';
 
 class MonitoringRepositoryImpl implements MonitoringRepository {
   final NetworkClient client;
-
-  MonitoringRepositoryImpl({required this.client});
+  final String apiPath;
+  MonitoringRepositoryImpl(
+      {required this.client, this.apiPath = '/monitoring'});
 
   @override
   Future<List<MonitoringModel>> getMonitoringData({
@@ -14,7 +14,7 @@ class MonitoringRepositoryImpl implements MonitoringRepository {
     required EnergyType type,
   }) async {
     final response = await client.get<List<dynamic>>(
-      path: apiMonitoringPath,
+      path: apiPath,
       queryParameters: {
         'date': date.toQueryDateString(),
         'type': type.queryParam,

@@ -1,3 +1,4 @@
+
 import 'package:monitoring_models/monitoring_models.dart';
 
 abstract class MonitoringRepository {
