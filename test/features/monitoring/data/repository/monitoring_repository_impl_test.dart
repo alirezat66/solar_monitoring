@@ -4,7 +4,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:mockito/annotations.dart';
 import 'package:monitoring_core/monitoring_core.dart';
-import 'package:solar_monitoring/features/monitoring/data/model/energy_type.dart';
+import 'package:monitoring_models/monitoring_models.dart';
 import 'package:solar_monitoring/features/monitoring/data/repository/monitoring_repository_impl.dart';
 
 import '../../../../fixtures/fixture_reader.dart';

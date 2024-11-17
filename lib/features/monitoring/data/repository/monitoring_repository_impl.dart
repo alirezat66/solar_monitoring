@@ -1,7 +1,6 @@
 import 'package:monitoring_core/monitoring_core.dart';
+import 'package:monitoring_models/monitoring_models.dart';
 import 'package:solar_monitoring/core/constants/api_constants.dart';
-import 'package:solar_monitoring/features/monitoring/data/model/energy_type.dart';
-import 'package:solar_monitoring/features/monitoring/data/model/monitoring_model.dart';
 import 'package:solar_monitoring/features/monitoring/data/repository/monitoring_repository.dart';
 
 class MonitoringRepositoryImpl implements MonitoringRepository {

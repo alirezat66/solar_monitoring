@@ -1,5 +1,4 @@
-import 'package:solar_monitoring/features/monitoring/data/model/energy_type.dart';
-import 'package:solar_monitoring/features/monitoring/data/model/monitoring_model.dart';
+import 'package:monitoring_models/monitoring_models.dart';
 
 abstract class MonitoringRepository {
   Future<List<MonitoringModel>> getMonitoringData({
