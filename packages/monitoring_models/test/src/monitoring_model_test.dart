@@ -1,8 +1,9 @@
 // test/features/monitoring/models/monitoring_model_test.dart
 import 'dart:convert';
-import 'dart:io';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:monitoring_models/monitoring_models.dart';
+
+import '../fixtures/fixture_reader.dart';
 
 void main() {
   group('MonitoringModel', () {
@@ -21,9 +22,8 @@ void main() {
 
     test('should parse list of monitoring data from fixture', () async {
       // Arrange
-      final file = File('test/fixtures/monitoring_response.json');
-      final jsonString = await file.readAsString();
-      final List<dynamic> jsonList = json.decode(jsonString);
+      final List<dynamic> jsonList =
+          json.decode(fixture('monitoring_response.json'));
 
       // Act
       final result =

@@ -431,6 +431,13 @@ packages:
       relative: true
     source: path
     version: "0.0.1"
+  monitoring_models:
+    dependency: "direct main"
+    description:
+      path: "packages/monitoring_models"
+      relative: true
+    source: path
+    version: "0.0.1"
   package_config:
     dependency: transitive
     description:
