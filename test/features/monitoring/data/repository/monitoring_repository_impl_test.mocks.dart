@@ -7,7 +7,7 @@ import 'dart:async' as _i2;
 
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:mockito/src/dummies.dart' as _i4;
-import 'package:solar_monitoring/core/network/network_client.dart' as _i3;
+import 'package:monitoring_core/src/network/network_client.dart' as _i3;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values

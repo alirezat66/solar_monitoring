@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:mockito/annotations.dart';
-import 'package:solar_monitoring/core/network/network_client.dart';
+import 'package:monitoring_core/monitoring_core.dart';
 import 'package:solar_monitoring/features/monitoring/data/model/energy_type.dart';
 import 'package:solar_monitoring/features/monitoring/data/repository/monitoring_repository_impl.dart';
 

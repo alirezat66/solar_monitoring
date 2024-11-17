@@ -1,9 +1,9 @@
 // test/core/di/injection_test.dart
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get_it/get_it.dart';
+import 'package:monitoring_core/monitoring_core.dart';
+import 'package:solar_monitoring/core/constants/api_constants.dart';
 import 'package:solar_monitoring/core/di/service_locator.dart';
-import 'package:solar_monitoring/core/network/network_client.dart';
-import 'package:solar_monitoring/core/network/dio/dio_option.dart';
 
 void main() {
   setUp(() async {
@@ -18,7 +18,7 @@ void main() {
 
       // Assert
       expect(dioOptions, isA<DioOptions>());
-      expect(dioOptions.baseUrl, 'http://localhost:3000');
+      expect(dioOptions.baseUrl, apiBaseUrl);
       expect(getIt.isRegistered<DioOptions>(), true);
     });
 
