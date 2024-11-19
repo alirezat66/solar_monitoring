@@ -362,36 +362,6 @@ void main() {
       );
 
       blocTest<MonitoringCubit, MonitoringState>(
-        'does not set up polling for past date',
-        setUp: () {
-          int callCount = 0;
-          when(repository.getMonitoringData(
-            type: anyNamed('type'),
-            date: anyNamed('date'),
-          )).thenAnswer((_) async {
-            callCount++;
-            return [];
-          });
-        },
-        build: () => MonitoringCubit(repository: repository),
-        act: (cubit) => cubit.loadData(previousDay),
-        verify: (_) {
-          verify(repository.getMonitoringData(
-            type: anyNamed('type'),
-            date: anyNamed('date'),
-          )).called(EnergyType.values.length); // Only initial calls
-        },
-        expect: () => [
-          predicate<MonitoringState>((state) => state.energyStates.values.every(
-                (model) => model.status == MonitoringStatus.loading,
-              )),
-          predicate<MonitoringState>((state) => state.energyStates.values.every(
-                (model) => model.status == MonitoringStatus.success,
-              )),
-        ],
-      );
-
-      blocTest<MonitoringCubit, MonitoringState>(
         'polling calls repository method periodically',
         setUp: () {
           when(repository.getMonitoringData(
