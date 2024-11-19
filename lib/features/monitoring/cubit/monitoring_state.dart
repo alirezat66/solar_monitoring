@@ -30,6 +30,16 @@ class MonitoringState extends Equatable {
     );
   }
 
+  MonitoringState toLoadingState() => copyWith(
+        energyStates: Map.fromEntries(
+          energyStates.entries.map(
+            (entry) => MapEntry(
+              entry.key,
+              entry.value.copyWith(status: MonitoringStatus.loading),
+            ),
+          ),
+        ),
+      );
   @override
   List<Object?> get props => [energyStates, selectedDate];
 }
