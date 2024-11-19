@@ -6,7 +6,6 @@ import 'package:monitoring_core/monitoring_core.dart';
 
 import 'dio_client_test.mocks.dart';
 
-
 @GenerateMocks([Dio])
 void main() {
   late MockDio mockDio;
