@@ -334,12 +334,10 @@ void main() {
       blocTest<MonitoringCubit, MonitoringState>(
         'sets up polling for current day',
         setUp: () {
-          int callCount = 0;
           when(repository.getMonitoringData(
             type: anyNamed('type'),
             date: anyNamed('date'),
           )).thenAnswer((_) async {
-            callCount++;
             return [];
           });
         },
