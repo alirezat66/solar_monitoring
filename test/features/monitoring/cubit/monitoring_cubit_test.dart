@@ -21,7 +21,7 @@ void main() {
         date: anyNamed('date'),
       )).thenAnswer((_) async => []);
     });
-    
+
     tearDown(() {
       reset(repository); // Reset mock calls
     });
@@ -121,15 +121,6 @@ void main() {
         }
       },
     );
-
-    test('updateData updates the state for a specific energy type', () {
-      final data = [MonitoringModel(date: testDate, value: 50)];
-      cubit.updateData(EnergyType.solar, data);
-
-      expect(cubit.state.energyStates[EnergyType.solar]?.models, data);
-      expect(cubit.state.energyStates[EnergyType.solar]?.status,
-          MonitoringStatus.success);
-    });
 
     blocTest<MonitoringCubit, MonitoringState>(
       'updateData updates the state for a specific energy type',
