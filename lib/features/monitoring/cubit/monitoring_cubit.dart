@@ -4,18 +4,20 @@ import 'package:equatable/equatable.dart';
 import 'package:monitoring_models/monitoring_models.dart';
 import 'package:monitoring_repository/monitoring_repository.dart';
 import 'package:solar_monitoring/core/bloc/app_bloc.dart';
-import 'package:solar_monitoring/core/constants/value_constants.dart';
 import 'package:solar_monitoring/features/monitoring/cubit/monitoring_state_model.dart';
 
 part 'monitoring_state.dart';
 
 class MonitoringCubit extends Cubit<MonitoringState> {
   final MonitoringRepository _repository;
+  final Duration _polDuration;
   Timer? _pollTimer;
 
   MonitoringCubit({
     required MonitoringRepository repository,
+    Duration? polDuration,
   })  : _repository = repository,
+        _polDuration = polDuration ?? const Duration(seconds: 30),
         super(MonitoringState(
           energyStates: {
             for (var type in EnergyType.values)
@@ -27,7 +29,7 @@ class MonitoringCubit extends Cubit<MonitoringState> {
           selectedDate: DateTime.now(),
         ));
 
-  Future<void> loadData(DateTime date, {bool forceRefresh = false}) async {
+  Future<void> loadData(DateTime date, {bool isForceRefresh = false}) async {
     // Update loading state for all types
     final loadingStates =
         Map<EnergyType, MonitoringStateModel>.from(state.energyStates);
@@ -104,9 +106,9 @@ class MonitoringCubit extends Cubit<MonitoringState> {
 
   void _setupPolling() {
     _pollTimer?.cancel();
-    _pollTimer = Timer.periodic(pollDuration, (_) {
+    _pollTimer = Timer.periodic(_polDuration, (_) {
       if (_isCurrentDay(state.selectedDate)) {
-        loadData(state.selectedDate, forceRefresh: true);
+        loadData(state.selectedDate, isForceRefresh: true);
       }
     });
   }
