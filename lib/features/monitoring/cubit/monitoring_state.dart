@@ -8,7 +8,18 @@ class MonitoringState extends Equatable {
     required this.energyStates,
     required this.selectedDate,
   });
-
+  factory MonitoringState.initial() => MonitoringState(
+        energyStates: Map.fromIterables(
+          EnergyType.values,
+          EnergyType.values.map(
+            (_) => const MonitoringStateModel(
+              models: [],
+              status: MonitoringStatus.initial,
+            ),
+          ),
+        ),
+        selectedDate: DateTime.now(),
+      );
   MonitoringState copyWith({
     Map<EnergyType, MonitoringStateModel>? energyStates,
     DateTime? selectedDate,

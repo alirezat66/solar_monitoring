@@ -18,16 +18,7 @@ class MonitoringCubit extends Cubit<MonitoringState> {
     Duration? polDuration,
   })  : _repository = repository,
         _polDuration = polDuration ?? const Duration(seconds: 30),
-        super(MonitoringState(
-          energyStates: {
-            for (var type in EnergyType.values)
-              type: const MonitoringStateModel(
-                models: [],
-                status: MonitoringStatus.initial,
-              )
-          },
-          selectedDate: DateTime.now(),
-        ));
+        super(MonitoringState.initial());
 
   Future<void> loadData(DateTime date, {bool isForceRefresh = false}) async {
     // Update loading state for all types
