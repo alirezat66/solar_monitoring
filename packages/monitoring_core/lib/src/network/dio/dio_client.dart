@@ -1,5 +1,6 @@
 import 'package:monitoring_core/monitoring_core.dart';
 import 'package:dio/dio.dart';
+
 class DioClient implements NetworkClient {
   Dio _dio;
 

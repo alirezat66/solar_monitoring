@@ -22,16 +22,9 @@ class MonitoringCubit extends Cubit<MonitoringState> {
 
   Future<void> loadData(DateTime date, {bool isForceRefresh = false}) async {
     // Update loading state for all types
-    final loadingStates =
-        Map<EnergyType, MonitoringStateModel>.from(state.energyStates);
-    for (var type in EnergyType.values) {
-      loadingStates[type] = state.energyStates[type]!.copyWith(
-        status: MonitoringStatus.loading,
-      );
-    }
 
     emit(state.copyWith(
-      energyStates: loadingStates,
+      energyStates: _updateAllEnergyStates(status: MonitoringStatus.loading),
       selectedDate: date,
     ));
 
@@ -108,5 +101,24 @@ class MonitoringCubit extends Cubit<MonitoringState> {
   Future<void> close() {
     _pollTimer?.cancel();
     return super.close();
+  }
+
+  Map<EnergyType, MonitoringStateModel> _updateAllEnergyStates({
+    required MonitoringStatus status,
+    String? error,
+    List<MonitoringModel>? models,
+  }) {
+    return Map.fromEntries(
+      state.energyStates.entries.map(
+        (entry) => MapEntry(
+          entry.key,
+          entry.value.copyWith(
+            status: status,
+            error: error,
+            models: models,
+          ),
+        ),
+      ),
+    );
   }
 }
