@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:equatable/equatable.dart';
+import 'package:monitoring_core/monitoring_core.dart';
 import 'package:monitoring_models/monitoring_models.dart';
 import 'package:monitoring_repository/monitoring_repository.dart';
 import 'package:solar_monitoring/core/bloc/app_bloc.dart';
@@ -26,7 +27,7 @@ class MonitoringCubit extends Cubit<MonitoringState> {
     final results = await _getMonitoringData(date);
     emit(state.copyWith(energyStates: results));
 
-    if (_isCurrentDay(date)) {
+    if (date.isToday) {
       _setupPolling();
     } else {
       _cancelPolling();
@@ -66,17 +67,10 @@ class MonitoringCubit extends Cubit<MonitoringState> {
     );
   }
 
-  bool _isCurrentDay(DateTime date) {
-    final now = DateTime.now();
-    return date.year == now.year &&
-        date.month == now.month &&
-        date.day == now.day;
-  }
-
   void _setupPolling() {
     _pollTimer?.cancel();
     _pollTimer = Timer.periodic(_polDuration, (_) {
-      if (_isCurrentDay(state.selectedDate)) {
+      if (state.selectedDate.isToday) {
         loadData(state.selectedDate, isForceRefresh: true);
       }
     });
