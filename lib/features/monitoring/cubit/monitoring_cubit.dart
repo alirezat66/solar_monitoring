@@ -21,41 +21,48 @@ class MonitoringCubit extends Cubit<MonitoringState> {
         super(MonitoringState.initial());
 
   Future<void> loadData(DateTime date, {bool isForceRefresh = false}) async {
-    // Update loading state for all types
-    state.toLoadingState();
     emit(state.toLoadingState().copyWith(selectedDate: date));
 
-    try {
-      final results = await _getMonitoringData(date);
+    final results = await _getMonitoringData(date);
+    emit(state.copyWith(energyStates: results));
 
-      emit(state.toSuccessState(results));
-
-      // Setup polling if current day
-      if (_isCurrentDay(date)) {
-        _setupPolling();
-      } else {
-        _cancelPolling();
-      }
-    } catch (e) {
-      final errorStates =
-          Map<EnergyType, MonitoringStateModel>.from(state.energyStates);
-      for (var type in EnergyType.values) {
-        errorStates[type] = state.energyStates[type]!.copyWith(
-          status: MonitoringStatus.failure,
-          error: e.toString(),
-        );
-      }
-
-      emit(state.copyWith(energyStates: errorStates));
+    if (_isCurrentDay(date)) {
+      _setupPolling();
+    } else {
+      _cancelPolling();
     }
   }
 
-  Future<List<List<MonitoringModel>>> _getMonitoringData(DateTime date) {
-    return Future.wait(
-      EnergyType.values.map((type) => _repository.getMonitoringData(
-            type: type,
-            date: date,
-          )),
+  Future<Map<EnergyType, MonitoringStateModel>> _getMonitoringData(
+      DateTime date) async {
+    final futures = EnergyType.values.map((type) async {
+      try {
+        final data = await _repository.getMonitoringData(
+          type: type,
+          date: date,
+        );
+        return MapEntry(
+          type,
+          MonitoringStateModel(
+            models: data,
+            status: MonitoringStatus.success,
+          ),
+        );
+      } catch (error) {
+        return MapEntry(type, _handleError(type, error));
+      }
+    });
+
+    final results = await Future.wait(futures);
+
+    return Map.fromEntries(results);
+  }
+
+  MonitoringStateModel _handleError(EnergyType type, Object error) {
+    final currentState = state.energyStates[type]!;
+    return currentState.copyWith(
+      status: MonitoringStatus.failure,
+      error: error.toString(),
     );
   }
 

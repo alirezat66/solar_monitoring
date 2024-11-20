@@ -190,6 +190,71 @@ void main() {
     );
 
     blocTest<MonitoringCubit, MonitoringState>(
+      'handles mixed success and error states when loading data',
+      setUp: () {
+        // Success for solar and house
+        when(repository.getMonitoringData(
+          type: EnergyType.solar,
+          date: anyNamed('date'),
+        )).thenAnswer((_) async => [
+              MonitoringModel(date: testDate, value: 100),
+            ]);
+
+        when(repository.getMonitoringData(
+          type: EnergyType.house,
+          date: anyNamed('date'),
+        )).thenAnswer((_) async => [
+              MonitoringModel(date: testDate, value: 200),
+            ]);
+
+        // Error for battery
+        when(repository.getMonitoringData(
+          type: EnergyType.battery,
+          date: anyNamed('date'),
+        )).thenThrow(Exception('Battery data error'));
+      },
+      build: () => MonitoringCubit(repository: repository),
+      act: (cubit) => cubit.loadData(testDate),
+      expect: () => [
+        // Initial loading state
+        isA<MonitoringState>().having(
+          (state) => state.energyStates.values
+              .every((model) => model.status == MonitoringStatus.loading),
+          'all states loading',
+          true,
+        ),
+        // Mixed state - success for solar and house, error for battery
+        isA<MonitoringState>()
+            .having(
+              (state) => state.energyStates[EnergyType.solar]?.status,
+              'solar success status',
+              MonitoringStatus.success,
+            )
+            .having(
+              (state) => state.energyStates[EnergyType.house]?.status,
+              'house success status',
+              MonitoringStatus.success,
+            )
+            .having(
+              (state) => state.energyStates[EnergyType.battery]?.status,
+              'battery error status',
+              MonitoringStatus.failure,
+            )
+            .having(
+              (state) => state.energyStates[EnergyType.battery]?.error,
+              'battery error message',
+              'Exception: Battery data error',
+            ),
+      ],
+      verify: (cubit) {
+        verify(repository.getMonitoringData(
+          type: EnergyType.battery,
+          date: testDate,
+        )).called(1);
+      },
+    );
+
+    blocTest<MonitoringCubit, MonitoringState>(
       'recovers from error state on retry',
       setUp: () {
         // First call throws error
