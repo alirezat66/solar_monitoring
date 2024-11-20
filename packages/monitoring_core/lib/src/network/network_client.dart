@@ -3,6 +3,6 @@ abstract class NetworkClient {
     required String path,
     Map<String, dynamic>? queryParameters,
   });
-  
+
   void dispose();
 }

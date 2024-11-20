@@ -16,8 +16,8 @@ void main() {
     test('should create instance with custom values', () {
       const options = DioOptions(
         baseUrl: 'https://api.example.com',
-        connectTimeout:  Duration(seconds: 10),
-        receiveTimeout:  Duration(seconds: 6),
+        connectTimeout: Duration(seconds: 10),
+        receiveTimeout: Duration(seconds: 6),
         headers: {
           'Content-Type': 'application/json',
           'Authorization': 'Bearer token',
