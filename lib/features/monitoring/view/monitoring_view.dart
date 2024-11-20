@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:monitoring_models/monitoring_models.dart';
 import 'package:solar_monitoring/core/bloc/app_bloc.dart';
+import 'package:solar_monitoring/features/monitoring/view/solar_bar_chart.dart';
 
 class MonitoringView extends StatelessWidget {
   const MonitoringView({super.key});
@@ -30,10 +31,11 @@ class MonitoringView extends StatelessWidget {
         ),
         body: TabBarView(
           children: EnergyType.values.map((type) {
-            return BlocSelector<MonitoringCubit, MonitoringState, int>(
-              selector: (state) => state.energyStates[type]?.models.length ?? 0,
-              builder: (context, count) => Center(
-                child: Text('Items count: $count'),
+            return BlocSelector<MonitoringCubit, MonitoringState,
+                List<MonitoringModel>>(
+              selector: (state) => state.energyStates[type]?.models ?? [],
+              builder: (context, data) => MonitoringChart(
+                data: data,
               ),
             );
           }).toList(),
