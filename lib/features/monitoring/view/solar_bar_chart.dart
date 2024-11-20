@@ -2,89 +2,145 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:monitoring_models/monitoring_models.dart';
 
-class MonitoringChart extends StatelessWidget {
+class MonitoringChart extends StatefulWidget {
   final List<MonitoringModel> data;
+  final Color chartColor;
+  final Color tooltipColor;
 
   const MonitoringChart({
     super.key,
     required this.data,
+    this.chartColor = Colors.blue,
+    this.tooltipColor = Colors.pink,
   });
 
-  List<FlSpot> _normalizeData() {
-    if (data.isEmpty) return [];
+  @override
+  State<MonitoringChart> createState() => _MonitoringChartState();
+}
 
-    // Find min/max values
-    double minY = data[0].value.toDouble();
-    double maxY = data[0].value.toDouble();
-    for (var item in data) {
-      if (item.value < minY) minY = item.value.toDouble();
-      if (item.value > maxY) maxY = item.value.toDouble();
+class _MonitoringChartState extends State<MonitoringChart> {
+  List<int> selectedSpots = [];
+
+  List<FlSpot> get spots => widget.data.asMap().entries.map((entry) {
+        return FlSpot(entry.key.toDouble(), entry.value.value.toDouble());
+      }).toList();
+
+  String _formatTime(int index) {
+    if (index >= 0 && index < widget.data.length) {
+      final date = widget.data[index].date;
+      return '${date.hour.toString().padLeft(2, '0')}:${date.minute.toString().padLeft(2, '0')}';
     }
-
-    // Normalize data points
-    return data.asMap().entries.map((entry) {
-      final normalizedY =
-          entry.value.value.toDouble(); // Using actual value for now
-      return FlSpot(entry.key.toDouble(), normalizedY);
-    }).toList();
+    return '';
   }
 
   @override
   Widget build(BuildContext context) {
-    return LineChart(
-      LineChartData(
-        lineBarsData: [
-          LineChartBarData(
-            spots: _normalizeData(),
-            barWidth: 2,
-            dotData: const FlDotData(show: false),
-            isCurved: true,
-            curveSmoothness: 0.2,
-          ),
-        ],
-        minY: 0, // Set minimum value
-        maxY: 10000, // Set maximum expected value
-        titlesData: FlTitlesData(
-          topTitles:
-              const AxisTitles(sideTitles: SideTitles(showTitles: false)),
-          rightTitles:
-              const AxisTitles(sideTitles: SideTitles(showTitles: false)),
-          bottomTitles: AxisTitles(
-            sideTitles: SideTitles(
-              showTitles: true,
-              interval: (data.length ~/ 6).toDouble(), // Show ~6 time labels
-              getTitlesWidget: (value, meta) => SideTitleWidget(
-                axisSide: meta.axisSide,
-                child: Text(
-                  _getTimeFromIndex(value.toInt()),
-                  style: const TextStyle(fontSize: 10),
+    return AspectRatio(
+      aspectRatio: 2.5,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 10),
+        child: LineChart(
+          LineChartData(
+            // Line styling
+            lineBarsData: [
+              LineChartBarData(
+                spots: spots,
+                showingIndicators: selectedSpots,
+                isCurved: true,
+                barWidth: 3,
+                color: widget.chartColor,
+                belowBarData: BarAreaData(
+                  show: true,
+                  color: widget.chartColor.withOpacity(0.2),
+                ),
+                dotData: const FlDotData(show: false),
+              ),
+            ],
+
+            // Touch interactions
+            lineTouchData: LineTouchData(
+              enabled: true,
+              touchTooltipData: LineTouchTooltipData(
+                tooltipRoundedRadius: 8,
+                getTooltipItems: (spots) {
+                  return spots.map((spot) {
+                    return LineTooltipItem(
+                      '${spot.y.toInt()} W\n${_formatTime(spot.x.toInt())}',
+                      const TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    );
+                  }).toList();
+                },
+              ),
+              getTouchedSpotIndicator: (barData, indices) {
+                return indices.map((index) {
+                  return TouchedSpotIndicatorData(
+                    FlLine(color: widget.tooltipColor),
+                    FlDotData(
+                      show: true,
+                      getDotPainter: (spot, _, __, ___) => FlDotCirclePainter(
+                        radius: 6,
+                        color: Colors.white,
+                        strokeWidth: 2,
+                        strokeColor: widget.tooltipColor,
+                      ),
+                    ),
+                  );
+                }).toList();
+              },
+            ),
+
+            // Axis styling
+            titlesData: FlTitlesData(
+              leftTitles: const AxisTitles(
+                sideTitles: SideTitles(
+                  showTitles: true,
+                  reservedSize: 40,
+                  interval: 2000,
+                ),
+              ),
+              bottomTitles: AxisTitles(
+                sideTitles: SideTitles(
+                  showTitles: true,
+                  interval: widget.data.isNotEmpty
+                      ? (widget.data.length ~/ 6).toDouble()
+                      : 1.0, // Show ~6 labels
+                  getTitlesWidget: (value, meta) => Padding(
+                    padding: const EdgeInsets.only(top: 8.0),
+                    child: Text(
+                      _formatTime(value.toInt()),
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 12,
+                      ),
+                    ),
+                  ),
                 ),
               ),
             ),
-          ),
-          leftTitles: const AxisTitles(
-            sideTitles: SideTitles(
-              showTitles: true,
-              interval: 2000,
-              reservedSize: 40,
+
+            // Grid and border
+            gridData: FlGridData(
+              show: true,
+              drawVerticalLine: false,
+              horizontalInterval: 2000,
+              getDrawingHorizontalLine: (value) {
+                return FlLine(
+                  color: Colors.grey.withOpacity(0.2),
+                  strokeWidth: 1,
+                );
+              },
             ),
+            borderData: FlBorderData(show: false),
+
+            // Value range
+            minY: 0,
+            maxY: 10000,
           ),
         ),
-        gridData: const FlGridData(
-          show: true,
-          drawVerticalLine: false,
-          horizontalInterval: 2000,
-        ),
-        borderData: FlBorderData(show: false),
       ),
     );
-  }
-
-  String _getTimeFromIndex(int index) {
-    if (index >= 0 && index < data.length) {
-      final date = data[index].date;
-      return '${date.hour.toString().padLeft(2, '0')}:${date.minute.toString().padLeft(2, '0')}';
-    }
-    return '';
   }
 }

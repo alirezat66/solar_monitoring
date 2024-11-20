@@ -7,7 +7,7 @@ class MonitoringModel {
   factory MonitoringModel.fromJson(Map<String, dynamic> json) {
     return MonitoringModel(
       date: DateTime.parse(json['timestamp']),
-      value: json['value'],
+      value: json['value'] / 10,
     );
   }
 }
