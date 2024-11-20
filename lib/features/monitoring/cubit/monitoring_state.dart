@@ -12,10 +12,7 @@ class MonitoringState extends Equatable {
         energyStates: Map.fromIterables(
           EnergyType.values,
           EnergyType.values.map(
-            (_) => const MonitoringStateModel(
-              models: [],
-              status: MonitoringStatus.initial,
-            ),
+            (_) => MonitoringStateModel.initial(),
           ),
         ),
         selectedDate: DateTime.now(),
@@ -36,19 +33,6 @@ class MonitoringState extends Equatable {
             (entry) => MapEntry(
               entry.key,
               entry.value.copyWith(status: MonitoringStatus.loading),
-            ),
-          ),
-        ),
-      );
-
-  MonitoringState toSuccessState(List<List<MonitoringModel>> results) =>
-      copyWith(
-        energyStates: Map.fromIterables(
-          EnergyType.values,
-          results.map(
-            (data) => MonitoringStateModel(
-              models: data,
-              status: MonitoringStatus.success,
             ),
           ),
         ),

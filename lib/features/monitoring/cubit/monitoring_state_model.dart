@@ -12,7 +12,10 @@ class MonitoringStateModel extends Equatable {
     required this.status,
     this.error,
   });
-
+  factory MonitoringStateModel.initial() => const MonitoringStateModel(
+        models: [],
+        status: MonitoringStatus.initial,
+      );
   MonitoringStateModel copyWith({
     List<MonitoringModel>? models,
     MonitoringStatus? status,
