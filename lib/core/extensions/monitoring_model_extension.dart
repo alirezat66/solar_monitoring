@@ -17,16 +17,16 @@ extension MonitoringModelListExtension on List<MonitoringModel> {
   List<FlSpot> normalizeToHours() {
     if (isEmpty) return [];
 
-    // Find reference time (earliest time in the dataset)
-    final referenceTime =
-        map((e) => e.date).reduce((a, b) => a.isBefore(b) ? a : b);
+    // Find reference time (start of the day)
+    final startOfDay = first.date.copyWith(
+        hour: 0, minute: 0, second: 0, millisecond: 0, microsecond: 0);
 
-    return asMap().entries.map((entry) {
-      // Calculate hours difference for X-axis
-      final hoursDiff = entry.value.date.difference(referenceTime).inHours;
+    return map((model) {
+      // Calculate seconds from start of day
+      final secondsFromStart = model.date.difference(startOfDay).inSeconds;
       return FlSpot(
-        hoursDiff.toDouble(),
-        entry.value.value.toDouble(),
+        secondsFromStart.toDouble(),
+        model.value.toDouble(),
       );
     }).toList();
   }
