@@ -40,6 +40,19 @@ class MonitoringState extends Equatable {
           ),
         ),
       );
+
+  MonitoringState toSuccessState(List<List<MonitoringModel>> results) =>
+      copyWith(
+        energyStates: Map.fromIterables(
+          EnergyType.values,
+          results.map(
+            (data) => MonitoringStateModel(
+              models: data,
+              status: MonitoringStatus.success,
+            ),
+          ),
+        ),
+      );
   @override
   List<Object?> get props => [energyStates, selectedDate];
 }

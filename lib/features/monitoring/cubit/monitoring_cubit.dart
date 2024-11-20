@@ -26,32 +26,15 @@ class MonitoringCubit extends Cubit<MonitoringState> {
     emit(state.toLoadingState().copyWith(selectedDate: date));
 
     try {
-      // Load all data in parallel
-      final results = await Future.wait(
-        EnergyType.values.map((type) => _repository.getMonitoringData(
-              type: type,
-              date: date,
-            )),
-      );
+      final results = await _getMonitoringData(date);
 
-      // Update states with results
-      final newStates = Map.fromIterables(
-        EnergyType.values,
-        results.map(
-          (data) => MonitoringStateModel(
-            models: data,
-            status: MonitoringStatus.success,
-          ),
-        ),
-      );
-
-      emit(state.copyWith(energyStates: newStates));
+      emit(state.toSuccessState(results));
 
       // Setup polling if current day
       if (_isCurrentDay(date)) {
         _setupPolling();
       } else {
-        _pollTimer?.cancel();
+        _cancelPolling();
       }
     } catch (e) {
       final errorStates =
@@ -67,15 +50,13 @@ class MonitoringCubit extends Cubit<MonitoringState> {
     }
   }
 
-  void updateData(EnergyType type, List<MonitoringModel> data) {
-    final newStates =
-        Map<EnergyType, MonitoringStateModel>.from(state.energyStates);
-    newStates[type] = MonitoringStateModel(
-      models: data,
-      status: MonitoringStatus.success,
+  Future<List<List<MonitoringModel>>> _getMonitoringData(DateTime date) {
+    return Future.wait(
+      EnergyType.values.map((type) => _repository.getMonitoringData(
+            type: type,
+            date: date,
+          )),
     );
-
-    emit(state.copyWith(energyStates: newStates));
   }
 
   bool _isCurrentDay(DateTime date) {
@@ -92,6 +73,10 @@ class MonitoringCubit extends Cubit<MonitoringState> {
         loadData(state.selectedDate, isForceRefresh: true);
       }
     });
+  }
+
+  void _cancelPolling() {
+    _pollTimer?.cancel();
   }
 
   @override

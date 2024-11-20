@@ -123,28 +123,6 @@ void main() {
     );
 
     blocTest<MonitoringCubit, MonitoringState>(
-      'updateData updates the state for a specific energy type',
-      build: () => MonitoringCubit(repository: repository),
-      act: (cubit) => cubit.updateData(
-        EnergyType.solar,
-        [MonitoringModel(date: testDate, value: 50)],
-      ),
-      expect: () => [
-        predicate<MonitoringState>((state) {
-          final solarState = state.energyStates[EnergyType.solar];
-          return solarState?.models.length == 1 &&
-              solarState?.models.first.value == 50 &&
-              solarState?.status == MonitoringStatus.success;
-        }),
-      ],
-      verify: (cubit) {
-        final solarState = cubit.state.energyStates[EnergyType.solar];
-        expect(solarState?.models.first.value, 50);
-        expect(solarState?.status, MonitoringStatus.success);
-      },
-    );
-
-    blocTest<MonitoringCubit, MonitoringState>(
       'force refresh reloads data',
       build: () => MonitoringCubit(repository: repository),
       act: (cubit) async {
@@ -267,61 +245,97 @@ void main() {
     );
 
     blocTest<MonitoringCubit, MonitoringState>(
-      'maintains state consistency across different operations',
+      'maintains state consistency across different date loads',
       setUp: () {
-        final monitoringData = [MonitoringModel(date: testDate, value: 200)];
+        var callCount = 0;
         when(repository.getMonitoringData(
           type: anyNamed('type'),
           date: anyNamed('date'),
-        )).thenAnswer((_) async => monitoringData);
+        )).thenAnswer((_) async {
+          callCount++;
+          return [
+            MonitoringModel(
+              date: testDate,
+              value: callCount * 100,
+            )
+          ];
+        });
       },
       build: () => MonitoringCubit(repository: repository),
       act: (cubit) async {
-        // Load initial data
         await cubit.loadData(testDate);
-
-        // Update solar data manually
-        final newData = [MonitoringModel(date: testDate, value: 500)];
-        cubit.updateData(EnergyType.solar, newData);
-
-        // Load current day data
         await cubit.loadData(DateTime.now());
       },
       expect: () => [
-        // Initial load - Loading state
-        predicate<MonitoringState>((state) => state.energyStates.values.every(
-              (model) => model.status == MonitoringStatus.loading,
-            )),
-        // Initial load - Success state
-        predicate<MonitoringState>((state) => state.energyStates.values.every(
-              (model) =>
-                  model.status == MonitoringStatus.success &&
-                  model.models.first.value == 200,
-            )),
-        // Manual update of solar data
-        predicate<MonitoringState>((state) =>
-            state.energyStates[EnergyType.solar]!.models.first.value == 500 &&
-            state.energyStates[EnergyType.solar]!.status ==
-                MonitoringStatus.success),
-        // Current day load - Loading state
-        predicate<MonitoringState>((state) => state.energyStates.values.every(
-              (model) => model.status == MonitoringStatus.loading,
-            )),
-        // Current day load - Success state
-        predicate<MonitoringState>((state) => state.energyStates.values.every(
-              (model) =>
-                  model.status == MonitoringStatus.success &&
-                  model.models.isNotEmpty,
-            )),
+        // First load - Loading state
+        isA<MonitoringState>()
+            .having(
+              (state) => state.selectedDate,
+              'selected date',
+              testDate,
+            )
+            .having(
+              (state) => state.energyStates.values.every((model) =>
+                  model.status == MonitoringStatus.loading &&
+                  model.models.isEmpty),
+              'loading states',
+              true,
+            ),
+        // First load - Success state
+        isA<MonitoringState>()
+            .having(
+              (state) => state.selectedDate,
+              'selected date',
+              testDate,
+            )
+            .having(
+              (state) => state.energyStates.values.every((model) =>
+                      model.status == MonitoringStatus.success &&
+                      model.models.length == 1 &&
+                      model.models.first.value <=
+                          300 // Since callCount * 100 for first 3 calls
+                  ),
+              'success states with correct values',
+              true,
+            ),
+        // Second load - Loading state
+        isA<MonitoringState>()
+            .having(
+              (state) => state.selectedDate.day,
+              'current day',
+              DateTime.now().day,
+            )
+            .having(
+              (state) => state.energyStates.values
+                  .every((model) => model.status == MonitoringStatus.loading),
+              'loading states',
+              true,
+            ),
+        // Second load - Success state
+        isA<MonitoringState>()
+            .having(
+              (state) => state.selectedDate.day,
+              'current day',
+              DateTime.now().day,
+            )
+            .having(
+              (state) => state.energyStates.values.every((model) =>
+                      model.status == MonitoringStatus.success &&
+                      model.models.length == 1 &&
+                      model.models.first.value <=
+                          600 // Since callCount * 100 for next 3 calls
+                  ),
+              'success states with correct values',
+              true,
+            ),
       ],
       verify: (cubit) {
-        // Verify final state
-        expect(cubit.state.energyStates[EnergyType.solar]?.status,
-            MonitoringStatus.success);
-        expect(cubit.state.energyStates[EnergyType.solar]?.models, isNotEmpty);
+        verify(repository.getMonitoringData(
+          type: anyNamed('type'),
+          date: anyNamed('date'),
+        )).called(EnergyType.values.length * 2);
       },
     );
-
     group('polling behavior', () {
       late DateTime currentDay;
       late DateTime previousDay;
