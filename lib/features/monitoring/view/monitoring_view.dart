@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:monitoring_models/monitoring_models.dart';
 import 'package:solar_monitoring/core/bloc/app_bloc.dart';
+import 'package:solar_monitoring/features/monitoring/cubit/monitoring_state_model.dart';
 import 'package:solar_monitoring/features/monitoring/view/solar_bar_chart.dart';
 
 class MonitoringView extends StatelessWidget {
@@ -32,11 +33,48 @@ class MonitoringView extends StatelessWidget {
         body: TabBarView(
           children: EnergyType.values.map((type) {
             return BlocSelector<MonitoringCubit, MonitoringState,
-                List<MonitoringModel>>(
-              selector: (state) => state.energyStates[type]?.models ?? [],
-              builder: (context, data) => MonitoringChart(
-                data: data,
+                MonitoringStateModel>(
+              selector: (state) => MonitoringStateModel(
+                models: state.energyStates[type]?.models ?? [],
+                status: state.energyStates[type]?.status ??
+                    MonitoringStatus.initial,
+                error: state.energyStates[type]?.error,
               ),
+              builder: (context, chartState) {
+                if (chartState.status == MonitoringStatus.loading) {
+                  return const Center(child: CircularProgressIndicator());
+                }
+
+                if (chartState.status == MonitoringStatus.failure) {
+                  return Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Icon(Icons.error_outline, color: Colors.red),
+                        const SizedBox(height: 8),
+                        Text(chartState.error ?? 'An error occurred'),
+                        TextButton(
+                          onPressed: () => context
+                              .read<MonitoringCubit>()
+                              .loadData(context
+                                  .read<MonitoringCubit>()
+                                  .state
+                                  .selectedDate),
+                          child: const Text('Retry'),
+                        ),
+                      ],
+                    ),
+                  );
+                }
+
+                if (chartState.models.isEmpty) {
+                  return const Center(child: Text('No data available'));
+                }
+
+                return MonitoringChart(
+                  data: chartState.models,
+                );
+              },
             );
           }).toList(),
         ),

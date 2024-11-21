@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:solar_monitoring/core/bloc/bloc_observer.dart';
 import 'package:solar_monitoring/core/di/service_locator.dart';
+import 'package:solar_monitoring/core/theme/light_theme.dart';
 import 'package:solar_monitoring/features/monitoring/view/monitoring_page.dart';
 
 import 'core/bloc/app_bloc.dart';
@@ -18,8 +19,9 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: MonitoringPage(),
+    return MaterialApp(
+      theme: darkTheme,
+      home: const MonitoringPage(),
     );
   }
 }

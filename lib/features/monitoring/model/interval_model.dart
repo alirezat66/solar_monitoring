@@ -1,62 +1,58 @@
 import 'dart:math';
 
-import 'package:fl_chart/fl_chart.dart';
-import 'package:solar_monitoring/core/extensions/fl_spots_extension.dart';
-
 class IntervalModel {
   final double interval;
-  final double min;
-  final double max;
+  final double lowerBound;
+  final double upperBound;
 
   IntervalModel({
     required this.interval,
-    required this.min,
-    required this.max,
+    required this.lowerBound,
+    required this.upperBound,
   });
 
-  factory IntervalModel.fromSpots(List<FlSpot> spots) {
-    // Find min and max Y values
-    final double minY = spots.minY;
-    final double maxY = spots.maxY;
+  factory IntervalModel.createNiceIntervals({
+    num lowerBound = 0,
+    required num upperBound,
+  }) {
+    assert(lowerBound != 0 || upperBound != 0, 'Both bounds cannot be zero');
+    assert(lowerBound < upperBound,
+        'Lower bound must be smaller than upper bound');
 
-    // Match Chart.js padding of 1%
-    final double minYPadded = minY * 0.99; // 1% padding below
-    final double maxYPadded = maxY * 1.01; // 1% padding above
-    final range = maxYPadded - minYPadded;
+    final double paddedLower = lowerBound * 0.99;
+    final double paddedUpper = upperBound * 1.01;
+    final range = paddedUpper - paddedLower;
 
-    // Calculate a nice interval that divides the range
-    double interval = range / 5; // Start with 5 divisions as a base
+    if (range == 0) {
+      return IntervalModel(
+        interval: 1,
+        lowerBound: paddedLower,
+        upperBound: paddedUpper,
+      );
+    }
 
-    // Round interval to a nice number
+    double interval = range / 5;
     final magnitude = pow(10, (log(interval) / ln10).floor()).toDouble();
     final normalized = interval / magnitude;
 
-    // Choose the nearest nice number
-    if (normalized <= 1) {
-      interval = magnitude;
-    } else if (normalized <= 2) {
-      interval = 2 * magnitude;
-    } else if (normalized <= 5) {
-      interval = 5 * magnitude;
-    } else if (normalized <= 7.5) {
-      interval = 10 * magnitude / 2; // This will give 5 * magnitude
-    } else {
-      interval = 10 * magnitude;
-    }
+    interval = _calculateNiceInterval(normalized, magnitude);
 
-    // Round minY down to nearest interval
-    final roundedMinY = (minYPadded / interval).floor() * interval;
-
-    // Calculate number of intervals needed
-    final numberOfIntervals = ((maxYPadded - roundedMinY) / interval).ceil();
-
-    // Calculate maxY
-    final roundedMaxY = roundedMinY + (interval * numberOfIntervals);
+    final roundedLower = (paddedLower / interval).floor() * interval;
+    final numberOfIntervals = ((paddedUpper - roundedLower) / interval).ceil();
+    final roundedUpper = roundedLower + (interval * numberOfIntervals);
 
     return IntervalModel(
       interval: interval,
-      min: roundedMinY,
-      max: roundedMaxY,
+      lowerBound: roundedLower,
+      upperBound: roundedUpper,
     );
+  }
+
+  static double _calculateNiceInterval(double normalized, double magnitude) {
+    if (normalized <= 1) return magnitude;
+    if (normalized <= 2) return 2 * magnitude;
+    if (normalized <= 5) return 5 * magnitude;
+    if (normalized <= 7.5) return 5 * magnitude; // 10 * magnitude / 2
+    return 10 * magnitude;
   }
 }
