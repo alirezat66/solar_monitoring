@@ -1,35 +1,55 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:solar_monitoring/core/theme/chart_theme_extension.dart';
+import 'package:monitoring_core/monitoring_core.dart';
+import 'package:solar_monitoring/core/extensions/context_extension.dart';
 
 class ChartConfig {
   final BuildContext context;
-  final ChartThemeExtension theme;
+  final double minX;
+  final double maxX;
+  final double timeInterval;
 
-  const ChartConfig({
-    required this.context,
-    required this.theme,
+  const ChartConfig(
+    this.context, {
+    this.minX = 0,
+    this.maxX = 86400,
+    this.timeInterval = 4 * 3600,
   });
 
-  LineChartBarData getLineBarData(List<FlSpot> spots) {
-    return LineChartBarData(
-      spots: spots,
-      isCurved: true,
-      color: theme.lineColor,
-      barWidth: theme.lineWidth,
-      isStrokeCapRound: false,
-      curveSmoothness: 0.2,
-      dotData: const FlDotData(show: false),
-      belowBarData: BarAreaData(
-        show: true,
-        gradient: theme.areaGradient,
+  FlTitlesData buildTitlesData() {
+    return FlTitlesData(
+      bottomTitles: AxisTitles(
+        sideTitles: SideTitles(
+          showTitles: true,
+          getTitlesWidget: (value, _) => Text(
+            value.toHourMinuteString(),
+            style: context.textTheme.bodySmall,
+          ),
+          interval: timeInterval,
+        ),
       ),
+      topTitles: const AxisTitles(drawBelowEverything: false),
+      rightTitles: const AxisTitles(drawBelowEverything: false),
     );
   }
 
-  FlGridData get gridData => FlGridData(
-        show: true,
-        drawVerticalLine: false,
-        getDrawingHorizontalLine: (_) => theme.horizontalGridLine,
-      );
+  LineTouchData buildTouchData() {
+    final theme = context.chartTheme;
+    return LineTouchData(
+      enabled: true,
+      touchTooltipData: LineTouchTooltipData(
+        tooltipPadding: const EdgeInsets.all(4),
+        getTooltipColor: (_) => theme.dotMainColor,
+        getTooltipItems: (spots) => spots
+            .map((spot) => LineTooltipItem(
+                  '${spot.x.toHourMinuteString()}\n${spot.y.toString()}',
+                  context.textTheme.labelMedium!.copyWith(
+                    color: theme.lineColor,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ))
+            .toList(),
+      ),
+    );
+  }
 }
