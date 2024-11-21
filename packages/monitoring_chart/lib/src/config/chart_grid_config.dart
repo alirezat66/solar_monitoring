@@ -1,5 +1,5 @@
 import 'package:fl_chart/fl_chart.dart';
-import 'package:solar_monitoring/core/theme/chart_theme_extension.dart';
+import '../theme/chart_theme_extension.dart';
 
 class ChartGridConfig {
   final ChartThemeExtension theme;

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:solar_monitoring/core/extensions/context_extension.dart';
-import 'package:solar_monitoring/core/theme/chart_theme_extension.dart';
+import 'package:monitoring_chart/monitoring_chart.dart';
 
 void main() {
   testWidgets('ContextExt provides theme properties', (tester) async {

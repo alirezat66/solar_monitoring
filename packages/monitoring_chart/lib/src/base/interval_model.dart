@@ -16,7 +16,7 @@ class IntervalModel {
     required num upperBound,
   }) {
     assert(lowerBound != 0 || upperBound != 0, 'Both bounds cannot be zero');
-    assert(lowerBound < upperBound,
+    assert(lowerBound <= upperBound,
         'Lower bound must be smaller than upper bound');
 
     final double paddedLower = lowerBound * 0.99;

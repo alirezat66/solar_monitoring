@@ -1,9 +1,9 @@
 import 'dart:math';
 
 import 'package:fl_chart/fl_chart.dart';
+import 'package:monitoring_chart/src/base/interval_model.dart';
+import 'package:monitoring_chart/src/extensions/monitoring_model_extension.dart';
 import 'package:monitoring_models/monitoring_models.dart';
-import 'package:solar_monitoring/core/extensions/monitoring_model_extension.dart';
-import 'package:solar_monitoring/features/monitoring/model/interval_model.dart';
 
 class ChartData {
   final List<MonitoringModel> models;
@@ -19,6 +19,14 @@ class ChartData {
   });
 
   factory ChartData.fromMonitoringModelList(List<MonitoringModel> models) {
+    if (models.isEmpty) {
+      return ChartData._(
+        models: [],
+        minY: 0,
+        maxY: 0,
+        interval: IntervalModel(lowerBound: 0, upperBound: 0, interval: 0),
+      );
+    }
     final minY = models.isEmpty ? 0 : models.map((p) => p.value).reduce(min);
     final maxY = models.isEmpty ? 0 : models.map((p) => p.value).reduce(max);
 

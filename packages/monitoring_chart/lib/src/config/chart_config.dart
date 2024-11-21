@@ -1,7 +1,7 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:monitoring_core/monitoring_core.dart';
-import 'package:solar_monitoring/core/extensions/context_extension.dart';
+import '../extensions/context_extension.dart';
 
 class ChartConfig {
   final BuildContext context;

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:solar_monitoring/core/theme/chart_theme.dart';
+import 'package:monitoring_chart/monitoring_chart.dart';
 
 ThemeData lightTheme = ThemeData.light().copyWith(
   extensions: [ChartTheme.light],

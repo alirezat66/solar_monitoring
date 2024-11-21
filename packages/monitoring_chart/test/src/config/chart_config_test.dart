@@ -1,8 +1,7 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:solar_monitoring/core/theme/chart_config.dart';
-import 'package:solar_monitoring/core/theme/light_theme.dart';
+import 'package:monitoring_chart/monitoring_chart.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
@@ -13,7 +12,9 @@ void main() {
     testWidgets('Test ChartConfig bottom titles generation',
         (WidgetTester tester) async {
       await tester.pumpWidget(MaterialApp(
-        theme: lightTheme,
+        theme: ThemeData.light().copyWith(
+          extensions: [ChartTheme.light],
+        ),
         home: Builder(
           builder: (context) {
             chartConfig = ChartConfig(context);
@@ -31,7 +32,9 @@ void main() {
     testWidgets('Test ChartConfig LineTouchData generation',
         (WidgetTester tester) async {
       await tester.pumpWidget(MaterialApp(
-        theme: lightTheme,
+        theme: ThemeData.light().copyWith(
+          extensions: [ChartTheme.light],
+        ),
         home: Builder(
           builder: (context) {
             chartConfig = ChartConfig(context);

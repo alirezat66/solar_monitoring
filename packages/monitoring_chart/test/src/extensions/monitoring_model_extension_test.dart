@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:monitoring_chart/src/extensions/monitoring_model_extension.dart';
 import 'package:monitoring_models/monitoring_models.dart';
-import 'package:solar_monitoring/core/extensions/monitoring_model_extension.dart';
 
 void main() {
   group('MonitoringModelExtension', () {
