@@ -20,13 +20,13 @@ void main() {
 
     test('formats value correctly', () {
       const wattsValue = PowerValue(valueInWatts: 1000);
-      expect(wattsValue.format(), equals('1000.00 W'));
+      expect(wattsValue.format(), equals('1000'));
 
       const kwValue = PowerValue(
         valueInWatts: 1000,
         unit: PowerUnit.kilowatts,
       );
-      expect(kwValue.format(), equals('1.00 kW'));
+      expect(kwValue.format(), equals('1'));
     });
 
     test('converts between units', () {
@@ -35,6 +35,44 @@ void main() {
 
       expect(kw.displayValue, equals(1));
       expect(kw.unit, equals(PowerUnit.kilowatts));
+    });
+  });
+
+  group('PowerValue formatting', () {
+    test('formats whole numbers without decimals', () {
+      const value = PowerValue(valueInWatts: 750);
+      expect(value.format(), equals('750'));
+    });
+
+    test('formats single decimal place correctly', () {
+      const value = PowerValue(valueInWatts: 750.5);
+      expect(value.format(), equals('750.5'));
+    });
+
+    test('formats two decimal places correctly', () {
+      const value = PowerValue(valueInWatts: 750.51);
+      expect(value.format(), equals('750.51'));
+    });
+
+    test('removes trailing zeros after decimal', () {
+      const value1 = PowerValue(valueInWatts: 750.10);
+      expect(value1.format(), equals('750.1'));
+
+      const value2 = PowerValue(valueInWatts: 750.00);
+      expect(value2.format(), equals('750'));
+    });
+
+    test('handles very small numbers correctly', () {
+      const value = PowerValue(
+        valueInWatts: 0.01,
+        unit: PowerUnit.kilowatts,
+      );
+      expect(value.format(), equals('0.01'));
+    });
+
+    test('handles large numbers correctly', () {
+      const value = PowerValue(valueInWatts: 1000000);
+      expect(value.format(), equals('1000000'));
     });
   });
 }

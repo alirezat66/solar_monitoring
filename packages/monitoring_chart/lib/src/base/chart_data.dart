@@ -10,34 +10,48 @@ class ChartData {
   final double minY;
   final double maxY;
   final IntervalModel interval;
+  final PowerUnit displayUnit;
 
   ChartData._({
     required this.models,
     required this.minY,
     required this.maxY,
     required this.interval,
+    this.displayUnit = PowerUnit.watts,
   });
 
-  factory ChartData.fromMonitoringModelList(List<MonitoringModel> models) {
-    if (models.isEmpty) {
-      return ChartData._(
-        models: [],
-        minY: 0,
-        maxY: 0,
-        interval: IntervalModel(lowerBound: 0, upperBound: 0, interval: 0),
-      );
-    }
-    final minY = models.isEmpty ? 0 : models.map((p) => p.value).reduce(min);
-    final maxY = models.isEmpty ? 0 : models.map((p) => p.value).reduce(max);
+  factory ChartData.fromMonitoringModelList(
+    List<MonitoringModel> models, {
+    PowerUnit displayUnit = PowerUnit.watts,
+  }) {
+    final values = models
+        .map((m) => PowerValue(valueInWatts: m.value.toDouble())
+            .convertTo(displayUnit)
+            .displayValue)
+        .toList();
+
+    final minY = values.isEmpty ? 0 : values.reduce(min);
+    final maxY = values.isEmpty ? 0 : values.reduce(max);
 
     return ChartData._(
       models: models,
       minY: minY.toDouble(),
       maxY: maxY.toDouble(),
-      interval:
-          IntervalModel.createNiceIntervals(lowerBound: minY, upperBound: maxY),
+      interval: IntervalModel.createNiceIntervals(
+        lowerBound: minY,
+        upperBound: maxY,
+      ),
+      displayUnit: displayUnit,
     );
   }
 
-  List<FlSpot> get spots => models.map((p) => p.spot).toList();
+  List<FlSpot> get spots => models.map((model) {
+        final value = PowerValue(valueInWatts: model.value.toDouble())
+            .convertTo(displayUnit)
+            .displayValue;
+        return FlSpot(
+          model.secondsFromMidnight.toDouble(),
+          value,
+        );
+      }).toList();
 }

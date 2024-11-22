@@ -1,0 +1,105 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "solar_monitoring",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "solar_monitoring (profile mode)",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "solar_monitoring (release mode)",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        },
+        {
+            "name": "monitoring_chart",
+            "cwd": "packages/monitoring_chart",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "monitoring_chart (profile mode)",
+            "cwd": "packages/monitoring_chart",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "monitoring_chart (release mode)",
+            "cwd": "packages/monitoring_chart",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        },
+        {
+            "name": "monitoring_core",
+            "cwd": "packages/monitoring_core",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "monitoring_core (profile mode)",
+            "cwd": "packages/monitoring_core",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "monitoring_core (release mode)",
+            "cwd": "packages/monitoring_core",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        },
+        {
+            "name": "monitoring_models",
+            "cwd": "packages/monitoring_models",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "monitoring_models (profile mode)",
+            "cwd": "packages/monitoring_models",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "monitoring_models (release mode)",
+            "cwd": "packages/monitoring_models",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        },
+        {
+            "name": "monitoring_repository",
+            "cwd": "packages/monitoring_repository",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "monitoring_repository (profile mode)",
+            "cwd": "packages/monitoring_repository",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "monitoring_repository (release mode)",
+            "cwd": "packages/monitoring_repository",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        }
+    ]
+}
