@@ -27,7 +27,8 @@ class ChartThemeExtension extends ThemeExtension<ChartThemeExtension> {
   final Size dotSize;
 
   // Layout
-  final double chartAspectRatio;
+  final double chartAspectRatioPortrait;
+  final double chartAspectRatioLandscape;
 
   // Filter styling
   final Color filterSelectedColor;
@@ -48,7 +49,8 @@ class ChartThemeExtension extends ThemeExtension<ChartThemeExtension> {
     this.dotBorderColor = Colors.black,
     this.dotSecondaryColor = Colors.grey,
     this.dotSize = const Size(20, 20),
-    this.chartAspectRatio = 2.1,
+    this.chartAspectRatioPortrait = 1.8,
+    this.chartAspectRatioLandscape = 4,
     this.filterSelectedColor = Colors.grey,
     this.filterUnselectedColor = Colors.grey,
   });
@@ -136,7 +138,8 @@ class ChartThemeExtension extends ThemeExtension<ChartThemeExtension> {
     Color? dotBorderColor,
     Color? dotSecondaryColor,
     Size? dotSize,
-    double? chartAspectRatio,
+    double? chartAspectRatioLandscape,
+    double? chartAspectRatioPortrait,
     Color? filterSelectedColor,
     Color? filterUnselectedColor,
   }) {
@@ -160,7 +163,10 @@ class ChartThemeExtension extends ThemeExtension<ChartThemeExtension> {
       dotBorderColor: dotBorderColor ?? this.dotBorderColor,
       dotSecondaryColor: dotSecondaryColor ?? this.dotSecondaryColor,
       dotSize: dotSize ?? this.dotSize,
-      chartAspectRatio: chartAspectRatio ?? this.chartAspectRatio,
+      chartAspectRatioLandscape:
+          chartAspectRatioLandscape ?? this.chartAspectRatioLandscape,
+      chartAspectRatioPortrait:
+          chartAspectRatioPortrait ?? this.chartAspectRatioPortrait,
       filterSelectedColor: filterSelectedColor ?? this.filterSelectedColor,
       filterUnselectedColor:
           filterUnselectedColor ?? this.filterUnselectedColor,

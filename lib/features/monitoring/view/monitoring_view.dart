@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:monitoring_core/monitoring_core.dart';
 import 'package:monitoring_models/monitoring_models.dart';
 import 'package:solar_monitoring/core/bloc/app_bloc.dart';
 import 'package:solar_monitoring/features/monitoring/cubit/monitoring_state_model.dart';
 import 'package:solar_monitoring/features/monitoring/view/solar_bar_chart.dart';
+import 'package:solar_monitoring/features/monitoring/view/unit_selector.dart';
 
 class MonitoringView extends StatelessWidget {
   const MonitoringView({super.key});
@@ -13,12 +15,21 @@ class MonitoringView extends StatelessWidget {
       length: EnergyType.values.length,
       child: Scaffold(
         appBar: AppBar(
-          title: BlocSelector<MonitoringCubit, MonitoringState, DateTime>(
-            selector: (state) => state.selectedDate,
-            builder: (context, date) => TextButton(
-              onPressed: () => _showDatePicker(context),
-              child: Text(date.toString()), // Use your date formatter
-            ),
+          title: Column(
+            children: [
+              BlocSelector<MonitoringCubit, MonitoringState, DateTime>(
+                selector: (state) => state.selectedDate,
+                builder: (context, date) => TextButton(
+                  onPressed: () => _showDatePicker(context),
+                  child:
+                      Text(date.toQueryDateString()), // Use your date formatter
+                ),
+              ),
+              const Padding(
+                padding: EdgeInsets.only(top: 8.0),
+                child: UnitSelector(),
+              ),
+            ],
           ),
           bottom: TabBar(
             tabs: EnergyType.values.map((type) {
@@ -29,6 +40,7 @@ class MonitoringView extends StatelessWidget {
               );
             }).toList(),
           ),
+          toolbarHeight: 100,
         ),
         body: TabBarView(
           children: EnergyType.values.map((type) {
@@ -71,8 +83,13 @@ class MonitoringView extends StatelessWidget {
                   return const Center(child: Text('No data available'));
                 }
 
-                return MonitoringChart(
-                  data: chartState.models,
+                return BlocBuilder<UnitSelectorCubit, PowerUnit>(
+                  builder: (context, state) {
+                    return MonitoringChart(
+                      data: chartState.models,
+                      unit: state,
+                    );
+                  },
                 );
               },
             );

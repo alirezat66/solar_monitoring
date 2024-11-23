@@ -9,8 +9,16 @@ class MonitoringPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => getIt<MonitoringCubit>()..loadData(DateTime.now()),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) =>
+              getIt<MonitoringCubit>()..loadData(DateTime.now()),
+        ),
+        BlocProvider(
+          create: (context) => getIt<UnitSelectorCubit>(),
+        ),
+      ],
       child: const MonitoringView(),
     );
   }

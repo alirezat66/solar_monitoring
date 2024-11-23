@@ -39,10 +39,7 @@ class ChartConfig {
           showTitles: true,
           reservedSize: 56,
           getTitlesWidget: (value, _) => Text(
-            PowerValue(
-              valueInWatts: value,
-              unit: unit,
-            ).format(),
+            value.formatValue(),
             style: context.textTheme.bodySmall,
           ),
         ),
@@ -60,9 +57,8 @@ class ChartConfig {
         tooltipPadding: const EdgeInsets.all(4),
         getTooltipColor: (_) => theme.dotMainColor,
         getTooltipItems: (spots) => spots.map((spot) {
-          final power = PowerValue(valueInWatts: spot.y, unit: unit);
           return LineTooltipItem(
-            '${spot.x.toHourMinuteString()}\n${power.format()}',
+            '${spot.x.toHourMinuteString()}\n${spot.y.formatValue()} ${unit.symbol}',
             context.textTheme.labelMedium!.copyWith(
               color: theme.lineColor,
               fontWeight: FontWeight.bold,

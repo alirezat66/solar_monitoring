@@ -50,7 +50,7 @@ class ChartTheme {
       color: Color(0xFF2C5364),
       width: 1,
     ),
-    dotMainColor: const Color(0xFF61DAFB), // Bright cyan
+    dotMainColor: const Color(0xFF000000), // Bright cyan
     dotBorderColor: Colors.black, // Black border
     dotSecondaryColor: const Color(0xFF2C5364), // Dark teal
     filterSelectedColor: const Color(0xFF61DAFB), // Bright cyan
