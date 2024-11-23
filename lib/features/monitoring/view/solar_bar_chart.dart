@@ -16,7 +16,7 @@ class MonitoringChart extends StatelessWidget {
       aspectRatio: context.chartTheme.chartAspectRatio,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 10),
-        child: SolarLineChart(data: data),
+        child: EnergyLineChart(data: data),
       ),
     );
   }

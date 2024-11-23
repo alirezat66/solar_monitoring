@@ -5,22 +5,25 @@ import 'package:monitoring_chart/src/config/chart_grid_config.dart';
 import 'package:monitoring_chart/src/config/chart_line_config.dart';
 import 'package:monitoring_models/monitoring_models.dart';
 
-class SolarLineChart extends StatelessWidget {
+class EnergyLineChart extends StatelessWidget {
   final List<MonitoringModel> data;
-  final int minX;
-  final int maxY;
-  const SolarLineChart({
+  final double minX;
+  final double maxY;
+  final PowerUnit unit;
+
+  const EnergyLineChart({
     super.key,
     required this.data,
     this.minX = 0,
     this.maxY = 86400,
+    this.unit = PowerUnit.watts,
   });
 
   @override
   Widget build(BuildContext context) {
     final chartData = ChartData.fromMonitoringModelList(data);
     final theme = context.chartTheme;
-    final config = ChartConfig(context);
+    final config = ChartConfig(context, minX: minX, maxX: maxY, unit: unit);
     final lineConfig = ChartLineConfig(spots: chartData.spots, theme: theme);
     final gridConfig = ChartGridConfig(theme: theme);
 

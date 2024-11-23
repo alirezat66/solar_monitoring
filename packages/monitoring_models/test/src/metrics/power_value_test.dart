@@ -67,6 +67,13 @@ void main() {
         valueInWatts: 0.01,
         unit: PowerUnit.kilowatts,
       );
+      expect(value.format(), equals('0'));
+    });
+    test('handles very small numbers correctly', () {
+      const value = PowerValue(
+        valueInWatts: 0.01,
+        unit: PowerUnit.watts,
+      );
       expect(value.format(), equals('0.01'));
     });
 
