@@ -9,7 +9,7 @@ class PowerValue {
     this.unit = PowerUnit.watts,
   });
 
-  double get displayValue => valueInWatts * unit.conversion;
+  double get  displayValue => valueInWatts * unit.conversion;
 
   String format() {
     final String stringValue = displayValue.toStringAsFixed(2);

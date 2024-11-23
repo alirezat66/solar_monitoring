@@ -8,22 +8,22 @@ import 'package:monitoring_models/monitoring_models.dart';
 class EnergyLineChart extends StatelessWidget {
   final List<MonitoringModel> data;
   final double minX;
-  final double maxY;
+  final double maxX;
   final PowerUnit unit;
 
   const EnergyLineChart({
     super.key,
     required this.data,
     this.minX = 0,
-    this.maxY = 86400,
+    this.maxX = 86400,
     this.unit = PowerUnit.watts,
   });
 
   @override
   Widget build(BuildContext context) {
-    final chartData = ChartData.fromMonitoringModelList(data);
+    final chartData = ChartData.fromMonitoringModelList(data, displayUnit: unit, minX: minX, maxX: maxX);
     final theme = context.chartTheme;
-    final config = ChartConfig(context, minX: minX, maxX: maxY, unit: unit);
+    final config = ChartConfig(context, minX: minX, maxX: maxX, unit: unit);
     final lineConfig = ChartLineConfig(spots: chartData.spots, theme: theme);
     final gridConfig = ChartGridConfig(theme: theme);
 
@@ -32,7 +32,7 @@ class EnergyLineChart extends StatelessWidget {
         minY: chartData.interval.lowerBound,
         maxY: chartData.interval.upperBound,
         minX: minX.toDouble(),
-        maxX: maxY.toDouble(),
+        maxX: maxX.toDouble(),
         lineBarsData: [lineConfig.buildLineData()],
         gridData: gridConfig.buildGridData(),
         borderData: theme.borderData,

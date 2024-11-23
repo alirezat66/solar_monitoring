@@ -27,7 +27,7 @@ class ChartConfig {
             value.toHourMinuteString(),
             style: context.textTheme.bodySmall,
           ),
-          interval: 4 * 3600,
+          interval: (maxX - minX) / 4,
         ),
       ),
       leftTitles: AxisTitles(

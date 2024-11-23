@@ -9,6 +9,8 @@ class ChartData {
   final List<MonitoringModel> models;
   final double minY;
   final double maxY;
+  final double minX;
+  final double maxX;
   final IntervalModel interval;
   final PowerUnit displayUnit;
 
@@ -16,6 +18,8 @@ class ChartData {
     required this.models,
     required this.minY,
     required this.maxY,
+    required this.minX,
+    required this.maxX,
     required this.interval,
     this.displayUnit = PowerUnit.watts,
   });
@@ -23,13 +27,20 @@ class ChartData {
   factory ChartData.fromMonitoringModelList(
     List<MonitoringModel> models, {
     PowerUnit displayUnit = PowerUnit.watts,
+    double minX = 0,
+    double maxX = 86400,
   }) {
     final values = models
         .map((m) => PowerValue(valueInWatts: m.value.toDouble())
             .convertTo(displayUnit)
             .displayValue)
         .toList();
-
+    if (minX != 0 && maxX != 86400) {
+      models = models
+          .where((m) =>
+              m.secondsFromMidnight >= minX && m.secondsFromMidnight <= maxX)
+          .toList();
+    }
     final minY = values.isEmpty ? 0 : values.reduce(min);
     final maxY = values.isEmpty ? 0 : values.reduce(max);
 
@@ -37,6 +48,8 @@ class ChartData {
       models: models,
       minY: minY.toDouble(),
       maxY: maxY.toDouble(),
+      minX: minX,
+      maxX: maxX,
       interval: IntervalModel.createNiceIntervals(
         lowerBound: minY,
         upperBound: maxY,
