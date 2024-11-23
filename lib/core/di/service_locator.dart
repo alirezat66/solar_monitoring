@@ -29,4 +29,7 @@ Future<void> initializeDependencies() async {
   getIt.registerFactory<UnitSelectorCubit>(
     () => UnitSelectorCubit(),
   );
+  getIt.registerFactory<ThemeCubit>(
+    () => ThemeCubit(),
+  );
 }

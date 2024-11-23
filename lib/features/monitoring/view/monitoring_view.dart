@@ -5,6 +5,7 @@ import 'package:solar_monitoring/core/bloc/app_bloc.dart';
 import 'package:solar_monitoring/features/monitoring/cubit/monitoring_state_model.dart';
 import 'package:solar_monitoring/features/monitoring/view/solar_bar_chart.dart';
 import 'package:solar_monitoring/features/monitoring/view/unit_selector.dart';
+import 'package:solar_monitoring/features/theme/model/theme_mode.dart';
 
 class MonitoringView extends StatelessWidget {
   const MonitoringView({super.key});
@@ -17,13 +18,32 @@ class MonitoringView extends StatelessWidget {
         appBar: AppBar(
           title: Column(
             children: [
-              BlocSelector<MonitoringCubit, MonitoringState, DateTime>(
-                selector: (state) => state.selectedDate,
-                builder: (context, date) => TextButton(
-                  onPressed: () => _showDatePicker(context),
-                  child:
-                      Text(date.toQueryDateString()), // Use your date formatter
-                ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  BlocSelector<MonitoringCubit, MonitoringState, DateTime>(
+                    selector: (state) => state.selectedDate,
+                    builder: (context, date) => TextButton(
+                      onPressed: () => _showDatePicker(context),
+                      child: Text(date.toQueryDateString()),
+                    ),
+                  ),
+                  // Add theme toggle button
+                  BlocBuilder<ThemeCubit, AppThemeMode>(
+                    builder: (context, themeMode) {
+                      return IconButton(
+                        icon: Icon(
+                          themeMode == AppThemeMode.light
+                              ? Icons.dark_mode
+                              : Icons.light_mode,
+                        ),
+                        onPressed: () {
+                          context.read<ThemeCubit>().toggleTheme();
+                        },
+                      );
+                    },
+                  ),
+                ],
               ),
               const Padding(
                 padding: EdgeInsets.only(top: 8.0),
