@@ -1,6 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:solar_monitoring/core/bloc/bloc_observer.dart';
+import 'package:solar_monitoring/core/di/service_locator.dart';
+import 'package:solar_monitoring/core/theme/light_theme.dart';
+import 'package:solar_monitoring/features/monitoring/view/monitoring_page.dart';
 
-void main() {
+import 'core/bloc/app_bloc.dart';
+
+void main() async {
+  Bloc.observer = AppBlocObserver();
+  WidgetsFlutterBinding.ensureInitialized();
+  initializeDependencies();
+
   runApp(const MainApp());
 }
 
@@ -9,12 +19,9 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: Scaffold(
-        body: Center(
-          child: Text('Hello World!'),
-        ),
-      ),
+    return MaterialApp(
+      theme: darkTheme,
+      home: const MonitoringPage(),
     );
   }
 }
