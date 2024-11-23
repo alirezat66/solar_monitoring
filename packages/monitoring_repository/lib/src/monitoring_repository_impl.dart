@@ -16,7 +16,7 @@ class MonitoringRepositoryImpl implements MonitoringRepository {
     final response = await client.get<List<dynamic>>(
       path: apiPath,
       queryParameters: {
-        'date': date.toQueryDateString(),
+        'date': date.formattedDate,
         'type': type.queryParam,
       },
     );

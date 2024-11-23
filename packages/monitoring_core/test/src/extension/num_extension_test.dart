@@ -36,4 +36,26 @@ void main() {
       expect(86400.toHourMinuteString(), '24:00'); // 24 hours
     });
   });
+
+  group('NumExtension formatValue', () {
+    test('should format number with two decimal places by default', () {
+      expect(1234.5678.formatValue(), '1234.57');
+    });
+
+    test('should format integer number with two decimal places by default', () {
+      expect(1234.formatValue(), '1234');
+    });
+
+    test('should format number with specified decimal places', () {
+      expect(1234.5678.formatValue(3), '1234.568');
+    });
+
+    test('should format number with trailing zeros removed', () {
+      expect(1234.50.formatValue(), '1234.5');
+    });
+
+    test('should format number with no decimal places', () {
+      expect(1234.0.formatValue(), '1234');
+    });
+  });
 }
