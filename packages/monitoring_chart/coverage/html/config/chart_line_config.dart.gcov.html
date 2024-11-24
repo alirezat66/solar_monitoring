@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2024-11-24 11:56:29</td>
+            <td class="headerValue">2024-11-24 12:59:29</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">-</td>
@@ -67,22 +67,22 @@
 <span id="L5"><span class="lineNum">       5</span>              :   final List&lt;FlSpot&gt; spots;</span>
 <span id="L6"><span class="lineNum">       6</span>              :   final ChartThemeExtension theme;</span>
 <span id="L7"><span class="lineNum">       7</span>              : </span>
-<span id="L8"><span class="lineNum">       8</span> <span class="tlaGNC">           1 :   const ChartLineConfig({</span></span>
+<span id="L8"><span class="lineNum">       8</span> <span class="tlaGNC">           2 :   const ChartLineConfig({</span></span>
 <span id="L9"><span class="lineNum">       9</span>              :     required this.spots,</span>
 <span id="L10"><span class="lineNum">      10</span>              :     required this.theme,</span>
 <span id="L11"><span class="lineNum">      11</span>              :   });</span>
 <span id="L12"><span class="lineNum">      12</span>              : </span>
-<span id="L13"><span class="lineNum">      13</span> <span class="tlaGNC">           1 :   LineChartBarData buildLineData() {</span></span>
-<span id="L14"><span class="lineNum">      14</span> <span class="tlaGNC">           1 :     return LineChartBarData(</span></span>
-<span id="L15"><span class="lineNum">      15</span> <span class="tlaGNC">           1 :       spots: spots,</span></span>
+<span id="L13"><span class="lineNum">      13</span> <span class="tlaGNC">           2 :   LineChartBarData buildLineData() {</span></span>
+<span id="L14"><span class="lineNum">      14</span> <span class="tlaGNC">           2 :     return LineChartBarData(</span></span>
+<span id="L15"><span class="lineNum">      15</span> <span class="tlaGNC">           2 :       spots: spots,</span></span>
 <span id="L16"><span class="lineNum">      16</span>              :       isCurved: true,</span>
-<span id="L17"><span class="lineNum">      17</span> <span class="tlaGNC">           2 :       color: theme.lineColor,</span></span>
-<span id="L18"><span class="lineNum">      18</span> <span class="tlaGNC">           2 :       barWidth: theme.lineWidth,</span></span>
-<span id="L19"><span class="lineNum">      19</span> <span class="tlaGNC">           2 :       curveSmoothness: theme.curveSmoothness,</span></span>
+<span id="L17"><span class="lineNum">      17</span> <span class="tlaGNC">           4 :       color: theme.lineColor,</span></span>
+<span id="L18"><span class="lineNum">      18</span> <span class="tlaGNC">           4 :       barWidth: theme.lineWidth,</span></span>
+<span id="L19"><span class="lineNum">      19</span> <span class="tlaGNC">           4 :       curveSmoothness: theme.curveSmoothness,</span></span>
 <span id="L20"><span class="lineNum">      20</span>              :       dotData: const FlDotData(show: false),</span>
-<span id="L21"><span class="lineNum">      21</span> <span class="tlaGNC">           1 :       belowBarData: BarAreaData(</span></span>
+<span id="L21"><span class="lineNum">      21</span> <span class="tlaGNC">           2 :       belowBarData: BarAreaData(</span></span>
 <span id="L22"><span class="lineNum">      22</span>              :         show: true,</span>
-<span id="L23"><span class="lineNum">      23</span> <span class="tlaGNC">           2 :         gradient: theme.areaGradient,</span></span>
+<span id="L23"><span class="lineNum">      23</span> <span class="tlaGNC">           4 :         gradient: theme.areaGradient,</span></span>
 <span id="L24"><span class="lineNum">      24</span>              :       ),</span>
 <span id="L25"><span class="lineNum">      25</span>              :     );</span>
 <span id="L26"><span class="lineNum">      26</span>              :   }</span>

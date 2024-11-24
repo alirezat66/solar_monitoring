@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2024-11-24 11:56:29</td>
+            <td class="headerValue">2024-11-24 12:59:29</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">-</td>
@@ -76,7 +76,7 @@
 <span id="L14"><span class="lineNum">      14</span>              :   final IntervalModel interval;</span>
 <span id="L15"><span class="lineNum">      15</span>              :   final PowerUnit displayUnit;</span>
 <span id="L16"><span class="lineNum">      16</span>              : </span>
-<span id="L17"><span class="lineNum">      17</span> <span class="tlaGNC">           1 :   ChartData._({</span></span>
+<span id="L17"><span class="lineNum">      17</span> <span class="tlaGNC">           2 :   ChartData._({</span></span>
 <span id="L18"><span class="lineNum">      18</span>              :     required this.models,</span>
 <span id="L19"><span class="lineNum">      19</span>              :     required this.minY,</span>
 <span id="L20"><span class="lineNum">      20</span>              :     required this.maxY,</span>
@@ -86,33 +86,33 @@
 <span id="L24"><span class="lineNum">      24</span>              :     this.displayUnit = PowerUnit.watts,</span>
 <span id="L25"><span class="lineNum">      25</span>              :   });</span>
 <span id="L26"><span class="lineNum">      26</span>              : </span>
-<span id="L27"><span class="lineNum">      27</span> <span class="tlaGNC">           1 :   factory ChartData.fromMonitoringModelList(</span></span>
+<span id="L27"><span class="lineNum">      27</span> <span class="tlaGNC">           2 :   factory ChartData.fromMonitoringModelList(</span></span>
 <span id="L28"><span class="lineNum">      28</span>              :     List&lt;MonitoringModel&gt; models, {</span>
 <span id="L29"><span class="lineNum">      29</span>              :     PowerUnit displayUnit = PowerUnit.watts,</span>
 <span id="L30"><span class="lineNum">      30</span>              :     double minX = 0,</span>
 <span id="L31"><span class="lineNum">      31</span>              :     double maxX = 86400,</span>
 <span id="L32"><span class="lineNum">      32</span>              :   }) {</span>
 <span id="L33"><span class="lineNum">      33</span>              :     final values = models</span>
-<span id="L34"><span class="lineNum">      34</span> <span class="tlaGNC">           5 :         .map((m) =&gt; PowerValue(valueInWatts: m.value.toDouble())</span></span>
-<span id="L35"><span class="lineNum">      35</span> <span class="tlaGNC">           1 :             .convertTo(displayUnit)</span></span>
-<span id="L36"><span class="lineNum">      36</span> <span class="tlaGNC">           1 :             .displayValue)</span></span>
-<span id="L37"><span class="lineNum">      37</span> <span class="tlaGNC">           1 :         .toList();</span></span>
-<span id="L38"><span class="lineNum">      38</span> <span class="tlaGNC">           2 :     if (minX != 0 &amp;&amp; maxX != 86400) {</span></span>
+<span id="L34"><span class="lineNum">      34</span> <span class="tlaGNC">          10 :         .map((m) =&gt; PowerValue(valueInWatts: m.value.toDouble())</span></span>
+<span id="L35"><span class="lineNum">      35</span> <span class="tlaGNC">           2 :             .convertTo(displayUnit)</span></span>
+<span id="L36"><span class="lineNum">      36</span> <span class="tlaGNC">           2 :             .displayValue)</span></span>
+<span id="L37"><span class="lineNum">      37</span> <span class="tlaGNC">           2 :         .toList();</span></span>
+<span id="L38"><span class="lineNum">      38</span> <span class="tlaGNC">           3 :     if (minX != 0 &amp;&amp; maxX != 86400) {</span></span>
 <span id="L39"><span class="lineNum">      39</span>              :       models = models</span>
 <span id="L40"><span class="lineNum">      40</span> <span class="tlaGNC">           2 :           .where((m) =&gt;</span></span>
 <span id="L41"><span class="lineNum">      41</span> <span class="tlaGNC">           4 :               m.secondsFromMidnight &gt;= minX &amp;&amp; m.secondsFromMidnight &lt;= maxX)</span></span>
 <span id="L42"><span class="lineNum">      42</span> <span class="tlaGNC">           1 :           .toList();</span></span>
 <span id="L43"><span class="lineNum">      43</span>              :     }</span>
-<span id="L44"><span class="lineNum">      44</span> <span class="tlaGNC">           2 :     final minY = values.isEmpty ? 0 : values.reduce(min);</span></span>
-<span id="L45"><span class="lineNum">      45</span> <span class="tlaGNC">           2 :     final maxY = values.isEmpty ? 0 : values.reduce(max);</span></span>
+<span id="L44"><span class="lineNum">      44</span> <span class="tlaGNC">           4 :     final minY = values.isEmpty ? 0 : values.reduce(min);</span></span>
+<span id="L45"><span class="lineNum">      45</span> <span class="tlaGNC">           4 :     final maxY = values.isEmpty ? 0 : values.reduce(max);</span></span>
 <span id="L46"><span class="lineNum">      46</span>              : </span>
-<span id="L47"><span class="lineNum">      47</span> <span class="tlaGNC">           1 :     return ChartData._(</span></span>
+<span id="L47"><span class="lineNum">      47</span> <span class="tlaGNC">           2 :     return ChartData._(</span></span>
 <span id="L48"><span class="lineNum">      48</span>              :       models: models,</span>
-<span id="L49"><span class="lineNum">      49</span> <span class="tlaGNC">           1 :       minY: minY.toDouble(),</span></span>
-<span id="L50"><span class="lineNum">      50</span> <span class="tlaGNC">           1 :       maxY: maxY.toDouble(),</span></span>
+<span id="L49"><span class="lineNum">      49</span> <span class="tlaGNC">           2 :       minY: minY.toDouble(),</span></span>
+<span id="L50"><span class="lineNum">      50</span> <span class="tlaGNC">           2 :       maxY: maxY.toDouble(),</span></span>
 <span id="L51"><span class="lineNum">      51</span>              :       minX: minX,</span>
 <span id="L52"><span class="lineNum">      52</span>              :       maxX: maxX,</span>
-<span id="L53"><span class="lineNum">      53</span> <span class="tlaGNC">           1 :       interval: IntervalModel.createNiceIntervals(</span></span>
+<span id="L53"><span class="lineNum">      53</span> <span class="tlaGNC">           2 :       interval: IntervalModel.createNiceIntervals(</span></span>
 <span id="L54"><span class="lineNum">      54</span>              :         lowerBound: minY,</span>
 <span id="L55"><span class="lineNum">      55</span>              :         upperBound: maxY,</span>
 <span id="L56"><span class="lineNum">      56</span>              :       ),</span>
@@ -120,15 +120,15 @@
 <span id="L58"><span class="lineNum">      58</span>              :     );</span>
 <span id="L59"><span class="lineNum">      59</span>              :   }</span>
 <span id="L60"><span class="lineNum">      60</span>              : </span>
-<span id="L61"><span class="lineNum">      61</span> <span class="tlaGNC">           4 :   List&lt;FlSpot&gt; get spots =&gt; models.map((model) {</span></span>
-<span id="L62"><span class="lineNum">      62</span> <span class="tlaGNC">           3 :         final value = PowerValue(valueInWatts: model.value.toDouble())</span></span>
-<span id="L63"><span class="lineNum">      63</span> <span class="tlaGNC">           2 :             .convertTo(displayUnit)</span></span>
-<span id="L64"><span class="lineNum">      64</span> <span class="tlaGNC">           1 :             .displayValue;</span></span>
-<span id="L65"><span class="lineNum">      65</span> <span class="tlaGNC">           1 :         return FlSpot(</span></span>
-<span id="L66"><span class="lineNum">      66</span> <span class="tlaGNC">           2 :           model.secondsFromMidnight.toDouble(),</span></span>
+<span id="L61"><span class="lineNum">      61</span> <span class="tlaGNC">           8 :   List&lt;FlSpot&gt; get spots =&gt; models.map((model) {</span></span>
+<span id="L62"><span class="lineNum">      62</span> <span class="tlaGNC">           6 :         final value = PowerValue(valueInWatts: model.value.toDouble())</span></span>
+<span id="L63"><span class="lineNum">      63</span> <span class="tlaGNC">           4 :             .convertTo(displayUnit)</span></span>
+<span id="L64"><span class="lineNum">      64</span> <span class="tlaGNC">           2 :             .displayValue;</span></span>
+<span id="L65"><span class="lineNum">      65</span> <span class="tlaGNC">           2 :         return FlSpot(</span></span>
+<span id="L66"><span class="lineNum">      66</span> <span class="tlaGNC">           4 :           model.secondsFromMidnight.toDouble(),</span></span>
 <span id="L67"><span class="lineNum">      67</span>              :           value,</span>
 <span id="L68"><span class="lineNum">      68</span>              :         );</span>
-<span id="L69"><span class="lineNum">      69</span> <span class="tlaGNC">           1 :       }).toList();</span></span>
+<span id="L69"><span class="lineNum">      69</span> <span class="tlaGNC">           2 :       }).toList();</span></span>
 <span id="L70"><span class="lineNum">      70</span>              : }</span>
         </pre>
               </td>
