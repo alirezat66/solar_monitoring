@@ -1,4 +1,4 @@
-import 'package:monitoring_models/src/metrics/metric_unit.dart';
+import 'metric_unit.dart';
 
 enum PowerUnit implements MetricUnit {
   watts(symbol: 'Watts', conversion: 1),

@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2024-11-23 19:19:34</td>
+            <td class="headerValue">2024-11-24 09:07:21</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">-</td>
@@ -68,20 +68,26 @@
 <span id="L6"><span class="lineNum">       6</span>              :   final Duration receiveTimeout;</span>
 <span id="L7"><span class="lineNum">       7</span>              :   final Map&lt;String, String&gt; headers;</span>
 <span id="L8"><span class="lineNum">       8</span>              : </span>
-<span id="L9"><span class="lineNum">       9</span> <span class="tlaGNC">           2 :   const DioOptions({</span></span>
-<span id="L10"><span class="lineNum">      10</span>              :     required this.baseUrl,</span>
-<span id="L11"><span class="lineNum">      11</span>              :     this.connectTimeout = const Duration(seconds: 5),</span>
-<span id="L12"><span class="lineNum">      12</span>              :     this.receiveTimeout = const Duration(seconds: 3),</span>
-<span id="L13"><span class="lineNum">      13</span>              :     this.headers = const {'Content-Type': 'application/json'},</span>
-<span id="L14"><span class="lineNum">      14</span>              :   });</span>
-<span id="L15"><span class="lineNum">      15</span>              : </span>
-<span id="L16"><span class="lineNum">      16</span> <span class="tlaGNC">           4 :   BaseOptions toBaseOptions() =&gt; BaseOptions(</span></span>
-<span id="L17"><span class="lineNum">      17</span> <span class="tlaGNC">           2 :         baseUrl: baseUrl,</span></span>
-<span id="L18"><span class="lineNum">      18</span> <span class="tlaGNC">           2 :         connectTimeout: connectTimeout,</span></span>
-<span id="L19"><span class="lineNum">      19</span> <span class="tlaGNC">           2 :         receiveTimeout: receiveTimeout,</span></span>
-<span id="L20"><span class="lineNum">      20</span> <span class="tlaGNC">           2 :         headers: headers,</span></span>
-<span id="L21"><span class="lineNum">      21</span>              :       );</span>
-<span id="L22"><span class="lineNum">      22</span>              : }</span>
+<span id="L9"><span class="lineNum">       9</span>              :   /// Creates an instance of [DioOptions] with the specified parameters.</span>
+<span id="L10"><span class="lineNum">      10</span>              :   ///</span>
+<span id="L11"><span class="lineNum">      11</span>              :   /// [baseUrl] - The base URL for all requests.</span>
+<span id="L12"><span class="lineNum">      12</span>              :   /// [connectTimeout] - The connection timeout duration (defaults to 5 seconds).</span>
+<span id="L13"><span class="lineNum">      13</span>              :   /// [receiveTimeout] - The receive timeout duration (defaults to 3 seconds).</span>
+<span id="L14"><span class="lineNum">      14</span>              :   /// [headers] - The headers for all requests (defaults to JSON content type).</span>
+<span id="L15"><span class="lineNum">      15</span> <span class="tlaGNC">           2 :   const DioOptions({</span></span>
+<span id="L16"><span class="lineNum">      16</span>              :     required this.baseUrl,</span>
+<span id="L17"><span class="lineNum">      17</span>              :     this.connectTimeout = const Duration(seconds: 5),</span>
+<span id="L18"><span class="lineNum">      18</span>              :     this.receiveTimeout = const Duration(seconds: 3),</span>
+<span id="L19"><span class="lineNum">      19</span>              :     this.headers = const {'Content-Type': 'application/json'},</span>
+<span id="L20"><span class="lineNum">      20</span>              :   });</span>
+<span id="L21"><span class="lineNum">      21</span>              : </span>
+<span id="L22"><span class="lineNum">      22</span> <span class="tlaGNC">           4 :   BaseOptions toBaseOptions() =&gt; BaseOptions(</span></span>
+<span id="L23"><span class="lineNum">      23</span> <span class="tlaGNC">           2 :         baseUrl: baseUrl,</span></span>
+<span id="L24"><span class="lineNum">      24</span> <span class="tlaGNC">           2 :         connectTimeout: connectTimeout,</span></span>
+<span id="L25"><span class="lineNum">      25</span> <span class="tlaGNC">           2 :         receiveTimeout: receiveTimeout,</span></span>
+<span id="L26"><span class="lineNum">      26</span> <span class="tlaGNC">           2 :         headers: headers,</span></span>
+<span id="L27"><span class="lineNum">      27</span>              :       );</span>
+<span id="L28"><span class="lineNum">      28</span>              : }</span>
         </pre>
               </td>
             </tr>

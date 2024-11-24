@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:monitoring_models/src/metrics/power_unit.dart';
+import 'package:monitoring_core/src/models/metrics/power_unit.dart';
 
 void main() {
   group('PowerUnit', () {

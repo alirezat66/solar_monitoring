@@ -1,9 +1,10 @@
 // test/features/monitoring/models/monitoring_model_test.dart
 import 'dart:convert';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:monitoring_models/monitoring_models.dart';
+import 'package:monitoring_core/src/models/energy/monitoring_model.dart';
 
-import '../fixtures/fixture_reader.dart';
+import '../../../fixtures/fixture_reader.dart';
+
 
 void main() {
   group('MonitoringModel', () {

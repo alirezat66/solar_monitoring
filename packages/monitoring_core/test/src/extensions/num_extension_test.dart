@@ -57,5 +57,8 @@ void main() {
     test('should format number with no decimal places', () {
       expect(1234.0.formatValue(), '1234');
     });
+    test('should format number with no decimal places and no error', () {
+      expect(1234.formatValue(), '1234');
+    });
   });
 }

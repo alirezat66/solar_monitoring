@@ -1,7 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:monitoring_models/src/metrics/power_unit.dart';
-import 'package:monitoring_models/src/metrics/power_value.dart';
-
+import 'package:monitoring_core/src/models/metrics/power_unit.dart';
+import 'package:monitoring_core/src/models/metrics/power_value.dart';
 void main() {
   group('PowerValue', () {
     test('creates with watts by default', () {

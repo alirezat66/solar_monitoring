@@ -1,11 +1,12 @@
 # Monitoring Core
 
-This package, `monitoring_core`, provides various utilities and helper classes, including extensions for date and number manipulation as well as a network client implementation using `Dio`. This package aims to simplify development by providing common utilities for handling dates, numbers, and HTTP requests.
+This package, `monitoring_core`, provides various utilities and helper classes, including extensions for date and number manipulation, network client implementation using `Dio`, and models for handling energy data and metrics. This package aims to simplify development by providing common utilities for handling dates, numbers, HTTP requests, and energy monitoring.
 
 ## Features Overview
 
 - **Date & Number Extensions**: Useful methods for working with `DateTime` and `num` to make code more concise and readable.
 - **Network Client with Dio**: A wrapper around the `Dio` package that makes HTTP requests easier and more structured.
+- **Energy Models**: Data models for representing energy types, monitoring metrics, and power values, making it easy to handle energy-related data.
 
 ## Extensions
 
@@ -107,9 +108,92 @@ final options = DioOptions(
 );
 ```
 
+## Energy Models
+
+### EnergyType
+
+The `EnergyType` enum defines different types of energy sources such as solar, house, and battery. Each type has an associated query parameter for use in data requests.
+
+#### Example Usage
+
+```dart
+import 'models/energy.dart';
+
+void main() {
+  EnergyType energy = EnergyType.solar;
+  print(energy.queryParam);  // Output: "solar"
+}
+```
+
+### MonitoringModel
+
+The `MonitoringModel` class represents a data point for monitoring energy. It contains the date of the reading and the value recorded.
+
+#### Features
+
+- `MonitoringModel.fromJson(Map<String, dynamic> json)`: Factory method to create a `MonitoringModel` instance from JSON data.
+
+#### Example Usage
+
+```dart
+import 'models/monitoring_model.dart';
+
+void main() {
+  Map<String, dynamic> json = {'timestamp': '2024-11-23T10:00:00', 'value': 150};
+  MonitoringModel model = MonitoringModel.fromJson(json);
+  print(model.date);  // Output: 2024-11-23 10:00:00.000
+  print(model.value); // Output: 150
+}
+```
+
+### MetricUnit
+
+`MetricUnit` is an abstract class that provides a structure for representing units of measurement, including a symbol and conversion rate.
+
+### PowerUnit
+
+The `PowerUnit` enum implements `MetricUnit` and represents different units of power, such as watts and kilowatts, with conversion factors.
+
+#### Example Usage
+
+```dart
+import 'models/power_unit.dart';
+
+void main() {
+  PowerUnit unit = PowerUnit.kilowatts;
+  print(unit.symbol);      // Output: "kWatts"
+  print(unit.conversion);  // Output: 0.001
+}
+```
+
+### PowerValue
+
+The `PowerValue` class represents a power measurement, allowing conversion between units and formatted output.
+
+#### Features
+
+- `displayValue`: Converts the internal value in watts to the specified unit.
+- `format()`: Formats the power value as a string, removing unnecessary decimal parts.
+- `convertTo(PowerUnit newUnit)`: Returns a new `PowerValue` converted to the specified `PowerUnit`.
+
+#### Example Usage
+
+```dart
+import 'models/power_value.dart';
+import 'models/power_unit.dart';
+
+void main() {
+  PowerValue power = PowerValue(valueInWatts: 1500);
+  print(power.format()); // Output: "1500"
+
+  PowerValue convertedPower = power.convertTo(PowerUnit.kilowatts);
+  print(convertedPower.format()); // Output: "1.5"
+}
+```
+
 ## Conclusion
 
-The `monitoring_core` package is designed to make your Flutter development easier by providing a set of tools for dealing with dates, numbers, and HTTP requests. By incorporating useful extensions and leveraging the Dio package, it reduces the complexity of working with common functionality and helps keep your code clean and easy to maintain.
+The `monitoring_core` package is designed to make your Flutter development easier by providing a set of tools for dealing with dates, numbers, HTTP requests, and energy data. By incorporating useful extensions, leveraging the Dio package, and including data models for energy, it reduces the complexity of working with common functionality and helps keep your code clean and easy to maintain.
 
 Feel free to explore and contribute to the package if you'd like to add more features or improve existing ones.
 

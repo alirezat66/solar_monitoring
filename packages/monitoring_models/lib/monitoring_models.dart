@@ -1,6 +1,6 @@
-export 'src/energy_type.dart';
-export 'src/monitoring_model.dart';
-export 'src/extensions/energy_type_extension.dart';
-export 'src/metrics/metric_unit.dart';
-export 'src/metrics/power_unit.dart';
-export 'src/metrics/power_value.dart';
+export '../../monitoring_core/lib/src/models/energy/energy_type.dart';
+export '../../monitoring_core/lib/src/models/energy/monitoring_model.dart';
+export '../../monitoring_core/lib/src/extensions/energy_type_extension.dart';
+export '../../monitoring_core/lib/src/models/metrics/metric_unit.dart';
+export '../../monitoring_core/lib/src/models/metrics/power_unit.dart';
+export '../../monitoring_core/lib/src/models/metrics/power_value.dart';

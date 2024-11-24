@@ -1,4 +1,4 @@
-import 'package:monitoring_models/src/metrics/power_unit.dart';
+import 'power_unit.dart';
 
 class PowerValue {
   final double valueInWatts;

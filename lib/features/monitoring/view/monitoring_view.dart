@@ -25,7 +25,7 @@ class MonitoringView extends StatelessWidget {
                     selector: (state) => state.selectedDate,
                     builder: (context, date) => TextButton(
                       onPressed: () => _showDatePicker(context),
-                      child: Text(date.formattedDate()),
+                      child: Text(date.formattedDate),
                     ),
                   ),
                   // Add theme toggle button

@@ -14,9 +14,6 @@ extension NumExtension on num {
     final String stringValue = toStringAsFixed(decimals);
     final List<String> parts = stringValue.split('.');
 
-    if (parts.length == 1) {
-      return parts[0];
-    }
     if (parts[1].replaceAll('0', '').isEmpty) {
       return parts[0];
     }
