@@ -1,8 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:solar_monitoring/core/bloc/app_bloc.dart';
 import 'package:solar_monitoring/core/di/service_locator.dart';
-
-import 'monitoring_view.dart';
+import 'package:solar_monitoring/features/monitoring/view/monitoring_view.dart';
 
 class MonitoringPage extends StatelessWidget {
   const MonitoringPage({super.key});
