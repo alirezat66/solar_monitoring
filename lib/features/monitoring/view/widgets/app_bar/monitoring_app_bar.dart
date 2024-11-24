@@ -8,7 +8,7 @@ class MonitoringAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      title: const SizedBox(height: 100, child: MonitoringAppBarTitle()),
+      title: const SizedBox(height: 120, child: MonitoringAppBarTitle()),
       bottom: const MonitoringTabBar(),
       toolbarHeight: 160,
     );

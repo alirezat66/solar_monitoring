@@ -14,7 +14,7 @@ import 'package:solar_monitoring/features/theme/view/theme_mode_toggle.dart';
 
 import '../../../../theme/view/theme_mode_toggle_test.mocks.dart';
 import 'date_selector_test.mocks.dart';
-import 'monitoring_app_bar_test.mocks.dart';
+import 'monitoring_app_bar_title_test.mocks.dart';
 
 @GenerateMocks([UnitSelectorCubit])
 void main() {

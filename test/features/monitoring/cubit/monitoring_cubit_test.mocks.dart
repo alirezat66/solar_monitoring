@@ -35,6 +35,7 @@ class MockMonitoringRepository extends _i1.Mock
   _i3.Future<List<_i4.MonitoringModel>> getMonitoringData({
     required DateTime? date,
     required _i4.EnergyType? type,
+    bool? resetCache = false,
   }) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -43,6 +44,7 @@ class MockMonitoringRepository extends _i1.Mock
           {
             #date: date,
             #type: type,
+            #resetCache: resetCache,
           },
         ),
         returnValue: _i3.Future<List<_i4.MonitoringModel>>.value(

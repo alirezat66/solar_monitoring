@@ -21,7 +21,7 @@ class MonitoringChart extends StatelessWidget {
                   ? context.chartTheme.chartAspectRatioLandscape
                   : context.chartTheme.chartAspectRatioPortrait,
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 10),
+            padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 10),
             child: EnergyLineChart(
               data: data,
               unit: unit,

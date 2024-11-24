@@ -23,7 +23,8 @@ class MonitoringCubit extends Cubit<MonitoringState> {
   Future<void> loadData(DateTime date, {bool isForceRefresh = false}) async {
     emit(state.toLoadingState().copyWith(selectedDate: date));
 
-    final results = await _getMonitoringData(date);
+    final results =
+        await _getMonitoringData(date, isForceRefresh: isForceRefresh);
     emit(state.copyWith(energyStates: results));
 
     if (date.isToday) {
@@ -33,13 +34,20 @@ class MonitoringCubit extends Cubit<MonitoringState> {
     }
   }
 
+  void resetData() {
+    emit(state.copyWith(energyStates: {}));
+    loadData(state.selectedDate, isForceRefresh: true);
+  }
+
   Future<Map<EnergyType, MonitoringStateModel>> _getMonitoringData(
-      DateTime date) async {
+      DateTime date,
+      {bool isForceRefresh = false}) async {
     final futures = EnergyType.values.map((type) async {
       try {
         final data = await _repository.getMonitoringData(
           type: type,
           date: date,
+          resetCache: isForceRefresh,
         );
         return MapEntry(
           type,

@@ -7,10 +7,16 @@ class MonitoringTabView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TabBarView(
-      children: EnergyType.values.map((type) {
-        return MonitoringStateSelector(type: type);
-      }).toList(),
+    return RefreshIndicator(
+      onRefresh: () async {
+        await Future.delayed(const Duration(seconds: 1));
+      },
+      color: Colors.amber,
+      child: TabBarView(
+        children: EnergyType.values.map((type) {
+          return MonitoringStateSelector(type: type);
+        }).toList(),
+      ),
     );
   }
 }

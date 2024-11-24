@@ -110,5 +110,39 @@ void main() {
         throwsException,
       );
     });
+
+    test('should reset cache when resetCache is true', () async {
+      // Arrange
+      final date = DateTime(2024, 11, 17);
+      when(mockClient.get<List<dynamic>>(
+        path: '/monitoring',
+        queryParameters: {
+          'date': '2024-11-17',
+          'type': 'solar',
+        },
+      )).thenAnswer((_) async => mockResponse);
+
+      // Act
+      await sut.getMonitoringData(
+        date: date,
+        type: EnergyType.solar,
+      );
+
+      // Act again with resetCache = true
+      await sut.getMonitoringData(
+        date: date,
+        type: EnergyType.solar,
+        resetCache: true,
+      );
+
+      // Assert
+      verify(mockClient.get<List<dynamic>>(
+        path: '/monitoring',
+        queryParameters: {
+          'date': '2024-11-17',
+          'type': 'solar',
+        },
+      )).called(1);
+    });
   });
 }

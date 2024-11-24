@@ -8,6 +8,7 @@ This repository relies on the `monitoring_core` package to use models, extension
 
 - **Data Retrieval**: Retrieve energy monitoring data for specific dates and energy types.
 - **Network Client Integration**: Uses `NetworkClient` from `monitoring_core` for making API requests.
+- **Cache Management**: Reset the cache to clear stored monitoring data.
 
 ## MonitoringRepositoryImpl
 
@@ -15,7 +16,9 @@ The `MonitoringRepositoryImpl` class implements the `MonitoringRepository` inter
 
 ### Features
 
-- `getMonitoringData({required DateTime date, required EnergyType type})`: Fetches energy monitoring data for the specified date and energy type.
+- `getMonitoringData({required DateTime date, required EnergyType type, bool resetCache = false})`: Fetches energy monitoring data for the specified date and energy type. The `resetCache` parameter can be used to reset the cache before fetching data.
+- `resetCache()`: Resets the cache to clear stored monitoring data.
+- `clearCache()`: Clears the cache.
 
 ### Example Usage
 
@@ -34,6 +37,7 @@ void main() async {
     final data = await repository.getMonitoringData(
       date: DateTime.now(),
       type: EnergyType.solar,
+      resetCache: true,
     );
     for (var item in data) {
       print('Date: ${item.date}, Value: ${item.value}');
@@ -41,6 +45,12 @@ void main() async {
   } catch (e) {
     print('Error fetching monitoring data: $e');
   }
+
+  // Reset the cache
+  repository.resetCache();
+
+  // Clear the cache
+  repository.clearCache();
 }
 ```
 
@@ -56,7 +66,9 @@ void main() async {
 
 #### Methods
 
-- `Future<List<MonitoringModel>> getMonitoringData({required DateTime date, required EnergyType type})`: This method makes a network call using the provided `NetworkClient` to fetch a list of `MonitoringModel` objects for the given date and energy type.
+- `Future<List<MonitoringModel>> getMonitoringData({required DateTime date, required EnergyType type, bool resetCache = false})`: This method makes a network call using the provided `NetworkClient` to fetch a list of `MonitoringModel` objects for the given date and energy type. The `resetCache` parameter can be used to reset the cache before fetching data.
+- `void resetCache()`: This method resets the cache to clear stored monitoring data.
+- `void clearCache()`: This method clears the cache.
 
 ## Dependencies
 

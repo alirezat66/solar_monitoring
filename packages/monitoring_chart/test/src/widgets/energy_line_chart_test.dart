@@ -2,7 +2,6 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:monitoring_chart/monitoring_chart.dart';
-import 'package:monitoring_core/monitoring_core.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
