@@ -85,5 +85,35 @@ void main() {
           mockData[2].date.millisecondsSinceEpoch / 1000 + 3600);
       expect(lineChartData.lineBarsData.first.spots[2].y, mockData[2].value);
     });
+
+    testWidgets('displays correct tooltip items', (WidgetTester tester) async {
+      await tester.pumpWidget(MaterialApp(
+        theme: ThemeData.light().copyWith(
+          extensions: [ChartTheme.light],
+        ),
+        home: Scaffold(
+          body: EnergyLineChart(
+            data: mockData,
+            minX: 0,
+            maxX: 7200,
+          ),
+        ),
+      ));
+
+      final lineChart = tester.widget<LineChart>(find.byType(LineChart));
+      final lineChartData = lineChart.data;
+      final lineTouchData = lineChartData.lineTouchData;
+
+      final tooltipItems = lineTouchData.touchTooltipData.getTooltipItems([
+        LineBarSpot(LineChartBarData(), 0, const FlSpot(0, 10),),
+        LineBarSpot(LineChartBarData(), 1, const FlSpot(3600, 20),),
+        LineBarSpot(LineChartBarData(), 2, const FlSpot(7200, 30),),
+      ]);
+
+      expect(tooltipItems.length, 3);
+      expect(tooltipItems[0]!.text, '00:00\n10 Watts');
+      expect(tooltipItems[1]!.text, '01:00\n20 Watts');
+      expect(tooltipItems[2]!.text, '02:00\n30 Watts');
+    });
   });
 }
