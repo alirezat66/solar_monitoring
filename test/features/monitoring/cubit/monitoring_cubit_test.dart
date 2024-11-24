@@ -2,7 +2,7 @@ import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:mockito/annotations.dart';
-import 'package:monitoring_models/monitoring_models.dart';
+import 'package:monitoring_core/monitoring_core.dart';
 import 'package:monitoring_repository/monitoring_repository.dart';
 import 'package:solar_monitoring/features/monitoring/cubit/monitoring_cubit.dart';
 

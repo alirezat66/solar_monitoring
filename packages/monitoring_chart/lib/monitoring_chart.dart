@@ -8,3 +8,5 @@ export 'src/theme/chart_theme_extension.dart';
 export 'src/widgets/energy_line_chart.dart';
 export 'src/extensions/context_extension.dart';
 export 'src/extensions/monitoring_model_extension.dart';
+
+export 'package:monitoring_core/monitoring_core.dart';

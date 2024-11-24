@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:monitoring_core/monitoring_core.dart';
 
-import '../../../core/bloc/app_bloc.dart';
+import '../../../../core/bloc/app_bloc.dart';
 
 class UnitSelector extends StatelessWidget {
   const UnitSelector({super.key});

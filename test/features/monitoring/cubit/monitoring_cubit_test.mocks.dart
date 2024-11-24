@@ -6,7 +6,7 @@
 import 'dart:async' as _i3;
 
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:monitoring_models/monitoring_models.dart' as _i4;
+import 'package:monitoring_core/monitoring_core.dart' as _i4;
 import 'package:monitoring_repository/src/monitoring_repository.dart' as _i2;
 
 // ignore_for_file: type=lint

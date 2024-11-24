@@ -496,16 +496,9 @@ packages:
     source: path
     version: "0.0.1"
   monitoring_core:
-    dependency: "direct main"
+    dependency: transitive
     description:
       path: "packages/monitoring_core"
-      relative: true
-    source: path
-    version: "0.0.1"
-  monitoring_models:
-    dependency: "direct main"
-    description:
-      path: "packages/monitoring_models"
       relative: true
     source: path
     version: "0.0.1"

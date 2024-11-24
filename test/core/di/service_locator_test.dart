@@ -5,6 +5,9 @@ import 'package:monitoring_core/monitoring_core.dart';
 import 'package:monitoring_repository/monitoring_repository.dart';
 import 'package:solar_monitoring/core/constants/api_constants.dart';
 import 'package:solar_monitoring/core/di/service_locator.dart';
+import 'package:solar_monitoring/features/monitoring/cubit/monitoring_cubit.dart';
+import 'package:solar_monitoring/features/monitoring/cubit/unit_selector_cubit.dart';
+import 'package:solar_monitoring/features/theme/cubit/theme_cubit.dart';
 
 void main() {
   setUp(() async {
@@ -41,6 +44,33 @@ void main() {
       expect(monitoringRepository, isA<MonitoringRepository>());
       expect(monitoringRepository, isA<MonitoringRepositoryImpl>());
       expect(getIt.isRegistered<MonitoringRepository>(), true);
+    });
+
+    test('should register MonitoringCubit as factory', () {
+      // Arrange & Act
+      final monitoringCubit = getIt<MonitoringCubit>();
+
+      // Assert
+      expect(monitoringCubit, isA<MonitoringCubit>());
+      expect(getIt.isRegistered<MonitoringCubit>(), true);
+    });
+
+    test('should register UnitSelectorCubit as factory', () {
+      // Arrange & Act
+      final unitSelectorCubit = getIt<UnitSelectorCubit>();
+
+      // Assert
+      expect(unitSelectorCubit, isA<UnitSelectorCubit>());
+      expect(getIt.isRegistered<UnitSelectorCubit>(), true);
+    });
+
+    test('should register ThemeCubit as factory', () {
+      // Arrange & Act
+      final themeCubit = getIt<ThemeCubit>();
+
+      // Assert
+      expect(themeCubit, isA<ThemeCubit>());
+      expect(getIt.isRegistered<ThemeCubit>(), true);
     });
   });
 }

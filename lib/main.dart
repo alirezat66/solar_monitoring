@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:solar_monitoring/core/bloc/bloc_observer.dart';
 import 'package:solar_monitoring/core/di/service_locator.dart';
-import 'package:solar_monitoring/core/theme/light_theme.dart';
+import 'package:solar_monitoring/core/theme/app_theme.dart';
 import 'package:solar_monitoring/features/monitoring/view/monitoring_page.dart';
 import 'package:solar_monitoring/features/theme/model/theme_mode.dart';
 
