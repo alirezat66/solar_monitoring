@@ -10,11 +10,11 @@ class MonitoringAppBar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       title: const MonitoringAppBarTitle(),
       bottom: const MonitoringTabBar(),
-      toolbarHeight: 100,
+      toolbarHeight: 160,
     );
   }
 
   @override
   Size get preferredSize =>
-      const Size.fromHeight(148); // toolbarHeight + tabHeight
+      const Size.fromHeight(160); // toolbarHeight + tabHeight
 }

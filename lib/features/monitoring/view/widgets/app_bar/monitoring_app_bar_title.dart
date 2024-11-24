@@ -8,17 +8,17 @@ class MonitoringAppBarTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return const Column(
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: const [
+          children: [
             DateSelector(),
             ThemeModeToggle(),
           ],
         ),
-        const Padding(
-          padding: EdgeInsets.only(top: 8.0),
+        Padding(
+          padding: EdgeInsets.only(top: 8.0, bottom: 16),
           child: UnitSelector(),
         ),
       ],
