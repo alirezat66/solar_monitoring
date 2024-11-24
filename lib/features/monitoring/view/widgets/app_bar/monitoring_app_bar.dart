@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:solar_monitoring/features/monitoring/view/widgets/app_bar/monitoring_app_bar_title.dart';
-import 'package:solar_monitoring/features/monitoring/view/widgets/monitoring_tab_bar.dart';
+import 'package:solar_monitoring/features/monitoring/view/widgets/tab/monitoring_tab_bar.dart';
 
 class MonitoringAppBar extends StatelessWidget implements PreferredSizeWidget {
   const MonitoringAppBar({super.key});
@@ -8,7 +8,7 @@ class MonitoringAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      title: const MonitoringAppBarTitle(),
+      title: const SizedBox(height: 100, child: MonitoringAppBarTitle()),
       bottom: const MonitoringTabBar(),
       toolbarHeight: 160,
     );

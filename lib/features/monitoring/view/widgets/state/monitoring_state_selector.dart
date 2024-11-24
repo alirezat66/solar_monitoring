@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:monitoring_chart/monitoring_chart.dart';
 import 'package:solar_monitoring/features/monitoring/cubit/monitoring_state_model.dart';
-import 'package:solar_monitoring/features/monitoring/view/monitoring_state_view.dart';
+import 'package:solar_monitoring/features/monitoring/view/widgets/state/monitoring_state_view.dart';
 
-import '../../../core/bloc/app_bloc.dart';
+import '../../../../../core/bloc/app_bloc.dart';
 
 class MonitoringStateSelector extends StatelessWidget {
   final EnergyType type;

@@ -3,7 +3,7 @@ import 'package:monitoring_chart/monitoring_chart.dart';
 import 'package:solar_monitoring/core/bloc/app_bloc.dart';
 import 'package:solar_monitoring/features/monitoring/cubit/monitoring_state_model.dart';
 import 'package:solar_monitoring/features/monitoring/view/monitoring_chart.dart';
-import 'package:solar_monitoring/features/monitoring/view/monitoring_error_view.dart';
+import 'package:solar_monitoring/features/monitoring/view/widgets/state/monitoring_error_view.dart';
 
 class MonitoringStateView extends StatelessWidget {
   final MonitoringStateModel state;

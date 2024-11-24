@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:monitoring_chart/monitoring_chart.dart';
-import 'package:monitoring_core/monitoring_core.dart';
 
 class MonitoringChart extends StatelessWidget {
   final List<MonitoringModel> data;

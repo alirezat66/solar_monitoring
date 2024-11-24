@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:monitoring_core/monitoring_core.dart';
+import 'package:monitoring_chart/monitoring_chart.dart';
 import 'package:solar_monitoring/features/monitoring/cubit/monitoring_cubit.dart';
 
 class MonitoringStateModel extends Equatable {

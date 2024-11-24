@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:equatable/equatable.dart';
-import 'package:monitoring_core/monitoring_core.dart';
+import 'package:monitoring_chart/monitoring_chart.dart';
 import 'package:monitoring_repository/monitoring_repository.dart';
 import 'package:solar_monitoring/core/bloc/app_bloc.dart';
 import 'package:solar_monitoring/features/monitoring/cubit/monitoring_state_model.dart';

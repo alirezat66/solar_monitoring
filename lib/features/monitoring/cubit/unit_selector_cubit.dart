@@ -1,5 +1,6 @@
 
-import 'package:monitoring_core/monitoring_core.dart';
+
+import 'package:monitoring_chart/monitoring_chart.dart';
 
 import '../../../core/bloc/app_bloc.dart';
 
