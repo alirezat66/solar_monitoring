@@ -1,39 +1,73 @@
-<!--
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
+# Monitoring Repository
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/tools/pub/writing-package-pages).
+The `monitoring_repository` package provides an implementation of a repository for fetching energy monitoring data. It acts as an abstraction layer between the data source and the application, making it easier to retrieve monitoring data while keeping your code organized and decoupled from the underlying data fetching mechanisms.
 
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/to/develop-packages).
--->
+This repository relies on the `monitoring_core` package to use models, extensions, and network client utilities.
 
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+## Features Overview
 
-## Features
+- **Data Retrieval**: Retrieve energy monitoring data for specific dates and energy types.
+- **Network Client Integration**: Uses `NetworkClient` from `monitoring_core` for making API requests.
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+## MonitoringRepositoryImpl
 
-## Getting started
+The `MonitoringRepositoryImpl` class implements the `MonitoringRepository` interface and provides an easy-to-use method for retrieving monitoring data for a given energy type and date.
 
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
+### Features
 
-## Usage
+- `getMonitoringData({required DateTime date, required EnergyType type})`: Fetches energy monitoring data for the specified date and energy type.
 
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder.
+### Example Usage
+
+To use `MonitoringRepositoryImpl`, you need to provide a `NetworkClient` instance. This example demonstrates how to use the repository to get monitoring data.
 
 ```dart
-const like = 'sample';
+import 'package:monitoring_core/monitoring_core.dart';
+import 'package:monitoring_repository/monitoring_repository.dart';
+
+void main() async {
+  final options = DioOptions(baseUrl: 'https://api.example.com');
+  final client = DioClient(options: options);
+  final repository = MonitoringRepositoryImpl(client: client);
+
+  try {
+    final data = await repository.getMonitoringData(
+      date: DateTime.now(),
+      type: EnergyType.solar,
+    );
+    for (var item in data) {
+      print('Date: ${item.date}, Value: ${item.value}');
+    }
+  } catch (e) {
+    print('Error fetching monitoring data: $e');
+  }
+}
 ```
 
-## Additional information
+## Classes
 
-TODO: Tell users more about the package: where to find more information, how to
-contribute to the package, how to file issues, what response they can expect
-from the package authors, and more.
+### MonitoringRepositoryImpl
+
+`MonitoringRepositoryImpl` is a concrete implementation of the `MonitoringRepository` interface, responsible for retrieving monitoring data using the provided `NetworkClient`.
+
+#### Constructor
+
+- `MonitoringRepositoryImpl({required NetworkClient client, String apiPath = '/monitoring'})`: Initializes the repository with the specified network client and an optional API path.
+
+#### Methods
+
+- `Future<List<MonitoringModel>> getMonitoringData({required DateTime date, required EnergyType type})`: This method makes a network call using the provided `NetworkClient` to fetch a list of `MonitoringModel` objects for the given date and energy type.
+
+## Dependencies
+
+This package relies on the following:
+
+- **monitoring_core**: Provides the `MonitoringModel`, `EnergyType`, `NetworkClient`, and `DateExtension`.
+- **Dio**: Used through `DioClient` to make HTTP requests.
+
+## Conclusion
+
+The `monitoring_repository` package simplifies the process of retrieving monitoring data by providing a repository pattern implementation that integrates with `monitoring_core` for networking and data modeling. This keeps the code modular, making it easier to manage and test.
+
+Feel free to explore and contribute to the package if you'd like to add more features or improve existing ones.
+
