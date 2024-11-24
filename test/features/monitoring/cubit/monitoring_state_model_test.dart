@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:monitoring_models/monitoring_models.dart';
+import 'package:monitoring_core/monitoring_core.dart';
 import 'package:solar_monitoring/features/monitoring/cubit/monitoring_cubit.dart';
 import 'package:solar_monitoring/features/monitoring/cubit/monitoring_state_model.dart';
 

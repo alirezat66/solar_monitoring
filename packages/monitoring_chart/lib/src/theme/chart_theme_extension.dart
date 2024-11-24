@@ -55,56 +55,6 @@ class ChartThemeExtension extends ThemeExtension<ChartThemeExtension> {
     this.filterUnselectedColor = Colors.grey,
   });
 
-  // Light theme
-  static const light = ChartThemeExtension(
-    lineColor: Color(0xFF3B3A3A),
-    areaGradient: LinearGradient(
-      begin: Alignment.topCenter,
-      end: Alignment.bottomCenter,
-      colors: [
-        Color(0x333B3A3A), // 0.2 opacity
-        Color(0x33959393),
-        Color(0x33FFFFFF),
-      ],
-    ),
-    horizontalGridLineColor: Color(0xFFE5E5E5),
-    verticalGridLineColor: Color(0xFF3B3A3A),
-    chartBorder: BorderSide(
-      color: Color(0xFFE5E5E5),
-      width: 1,
-    ),
-    dotMainColor: Color(0xFF3B3A3A),
-    dotBorderColor: Color(0xFF3B3A3A),
-    dotSecondaryColor: Color(0xFF898989),
-    filterSelectedColor: Color(0xFFECECEC),
-    filterUnselectedColor: Color(0xFFECECEC),
-  );
-
-  // Dark theme
-  static const dark = ChartThemeExtension(
-    lineColor: Color(0xFFE5E5E5),
-    areaGradient: LinearGradient(
-      begin: Alignment.topCenter,
-      end: Alignment.bottomCenter,
-      colors: [
-        Color(0x33FFFFFF),
-        Color(0x33959393),
-        Color(0x333B3A3A),
-      ],
-    ),
-    horizontalGridLineColor: Color(0xFF3B3A3A),
-    verticalGridLineColor: Color(0xFFE5E5E5),
-    chartBorder: BorderSide(
-      color: Color(0xFF3B3A3A),
-      width: 1,
-    ),
-    dotMainColor: Color(0xFFE5E5E5),
-    dotBorderColor: Color(0xFFE5E5E5),
-    dotSecondaryColor: Color(0xFF959393),
-    filterSelectedColor: Color(0xFF3B3A3A),
-    filterUnselectedColor: Color(0xFF3B3A3A),
-  );
-
   // Helper methods
   FlLine get horizontalGridLine => FlLine(
         color: horizontalGridLineColor,

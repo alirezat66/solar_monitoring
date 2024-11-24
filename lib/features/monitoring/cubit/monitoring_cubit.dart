@@ -1,8 +1,7 @@
 import 'dart:async';
 
 import 'package:equatable/equatable.dart';
-import 'package:monitoring_core/monitoring_core.dart';
-import 'package:monitoring_models/monitoring_models.dart';
+import 'package:monitoring_chart/monitoring_chart.dart';
 import 'package:monitoring_repository/monitoring_repository.dart';
 import 'package:solar_monitoring/core/bloc/app_bloc.dart';
 import 'package:solar_monitoring/features/monitoring/cubit/monitoring_state_model.dart';
@@ -24,7 +23,8 @@ class MonitoringCubit extends Cubit<MonitoringState> {
   Future<void> loadData(DateTime date, {bool isForceRefresh = false}) async {
     emit(state.toLoadingState().copyWith(selectedDate: date));
 
-    final results = await _getMonitoringData(date);
+    final results =
+        await _getMonitoringData(date, isForceRefresh: isForceRefresh);
     emit(state.copyWith(energyStates: results));
 
     if (date.isToday) {
@@ -34,13 +34,20 @@ class MonitoringCubit extends Cubit<MonitoringState> {
     }
   }
 
+  void resetData() {
+    emit(state.copyWith(energyStates: {}));
+    loadData(state.selectedDate, isForceRefresh: true);
+  }
+
   Future<Map<EnergyType, MonitoringStateModel>> _getMonitoringData(
-      DateTime date) async {
+      DateTime date,
+      {bool isForceRefresh = false}) async {
     final futures = EnergyType.values.map((type) async {
       try {
         final data = await _repository.getMonitoringData(
           type: type,
           date: date,
+          resetCache: isForceRefresh,
         );
         return MapEntry(
           type,

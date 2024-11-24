@@ -1,8 +1,9 @@
-import 'package:monitoring_models/monitoring_models.dart';
+import 'package:monitoring_core/monitoring_core.dart';
 
 abstract class MonitoringRepository {
   Future<List<MonitoringModel>> getMonitoringData({
     required DateTime date,
     required EnergyType type,
+    bool resetCache = false,
   });
 }

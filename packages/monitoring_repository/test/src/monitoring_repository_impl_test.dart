@@ -4,7 +4,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:monitoring_core/monitoring_core.dart';
-import 'package:monitoring_models/monitoring_models.dart';
 import 'package:monitoring_repository/monitoring_repository.dart';
 
 import '../../../../test/fixtures/fixture_reader.dart';
@@ -110,6 +109,40 @@ void main() {
         ),
         throwsException,
       );
+    });
+
+    test('should reset cache when resetCache is true', () async {
+      // Arrange
+      final date = DateTime(2024, 11, 17);
+      when(mockClient.get<List<dynamic>>(
+        path: '/monitoring',
+        queryParameters: {
+          'date': '2024-11-17',
+          'type': 'solar',
+        },
+      )).thenAnswer((_) async => mockResponse);
+
+      // Act
+      await sut.getMonitoringData(
+        date: date,
+        type: EnergyType.solar,
+      );
+
+      // Act again with resetCache = true
+      await sut.getMonitoringData(
+        date: date,
+        type: EnergyType.solar,
+        resetCache: true,
+      );
+
+      // Assert
+      verify(mockClient.get<List<dynamic>>(
+        path: '/monitoring',
+        queryParameters: {
+          'date': '2024-11-17',
+          'type': 'solar',
+        },
+      )).called(1);
     });
   });
 }

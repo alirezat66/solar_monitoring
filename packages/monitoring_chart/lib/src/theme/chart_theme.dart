@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:monitoring_chart/src/theme/chart_theme_extension.dart';
 
@@ -23,7 +22,7 @@ class ChartTheme {
       color: Color(0xFFE5E5E5),
       width: 1,
     ),
-    dotMainColor: const Color(0xFF2D3142), // Dark blue-gray
+    dotMainColor: const Color(0xFFE5D9F6), // Material 3 default primary color
     dotBorderColor: Colors.white, // White border
     dotSecondaryColor: const Color(0xFF4F5D75), // Medium blue-gray
     filterSelectedColor: const Color(0xFF2D3142), // Dark blue-gray
@@ -50,7 +49,7 @@ class ChartTheme {
       color: Color(0xFF2C5364),
       width: 1,
     ),
-    dotMainColor: const Color(0xFF000000), // Bright cyan
+    dotMainColor: const Color(0xFF6200EE), // Material 3 default primary color
     dotBorderColor: Colors.black, // Black border
     dotSecondaryColor: const Color(0xFF2C5364), // Dark teal
     filterSelectedColor: const Color(0xFF61DAFB), // Bright cyan

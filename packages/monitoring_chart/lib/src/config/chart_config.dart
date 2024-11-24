@@ -1,7 +1,7 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:monitoring_chart/src/base/interval_model.dart';
 import 'package:monitoring_core/monitoring_core.dart';
-import 'package:monitoring_models/monitoring_models.dart';
 import '../extensions/context_extension.dart';
 
 class ChartConfig {
@@ -9,12 +9,14 @@ class ChartConfig {
   final double minX;
   final double maxX;
   final double timeInterval;
+  final IntervalModel leftInterval;
   final PowerUnit unit;
   const ChartConfig(
     this.context, {
     this.minX = 0,
     this.maxX = 86400,
     this.timeInterval = 4 * 3600,
+    required this.leftInterval,
     this.unit = PowerUnit.watts,
   });
 
@@ -38,6 +40,7 @@ class ChartConfig {
         sideTitles: SideTitles(
           showTitles: true,
           reservedSize: 56,
+          interval: leftInterval.interval,
           getTitlesWidget: (value, _) => Text(
             value.formatValue(),
             style: context.textTheme.bodySmall,
