@@ -161,6 +161,43 @@ class EnergyChartPage extends StatelessWidget {
 }
 ```
 
+## Widget: MonitoringChart
+
+The `MonitoringChart` widget is another widget provided by this package, enabling developers to integrate monitoring charts into their applications.
+
+### Features
+
+- Displays monitoring data as a chart.
+- Configurable using `ChartConfig`, `ChartLineConfig`, and `ChartGridConfig`.
+
+### Example Usage
+
+```dart
+import 'package:flutter/material.dart';
+import 'package:monitoring_core/monitoring_core.dart';
+import 'package:monitoring_chart/monitoring_chart.dart';
+
+class MonitoringChartPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final models = [
+      MonitoringModel(date: DateTime.now(), value: 120),
+      MonitoringModel(date: DateTime.now().add(Duration(hours: 1)), value: 200),
+    ];
+
+    return Scaffold(
+      appBar: AppBar(title: Text('Monitoring Chart')),
+      body: Center(
+        child: MonitoringChart(
+          data: models,
+          unit: PowerUnit.kilowatts,
+        ),
+      ),
+    );
+  }
+}
+```
+
 ## Dependencies
 
 This package relies on the following:

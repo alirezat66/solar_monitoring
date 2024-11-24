@@ -56,6 +56,16 @@ void main() async {
 
 ## Classes
 
+### MonitoringRepository
+
+`MonitoringRepository` is an interface that defines the contract for retrieving monitoring data.
+
+#### Methods
+
+- `Future<List<MonitoringModel>> getMonitoringData({required DateTime date, required EnergyType type, bool resetCache = false})`: This method makes a network call using the provided `NetworkClient` to fetch a list of `MonitoringModel` objects for the given date and energy type. The `resetCache` parameter can be used to reset the cache before fetching data.
+- `void resetCache()`: This method resets the cache to clear stored monitoring data.
+- `void clearCache()`: This method clears the cache.
+
 ### MonitoringRepositoryImpl
 
 `MonitoringRepositoryImpl` is a concrete implementation of the `MonitoringRepository` interface, responsible for retrieving monitoring data using the provided `NetworkClient`.
