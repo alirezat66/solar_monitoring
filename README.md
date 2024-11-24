@@ -35,7 +35,7 @@ This application is developed for testing purposes, focusing on **Structure**. T
 
 ## Demo
 
-![myfile](https://github.com/alirezat66/solar_monitoring/blob/master/assets/demo.gif)
+![myfile](https://github.com/alirezat66/solar_monitoring/blob/main/assets/demo.gif)
 
 ## Color Reference
 
