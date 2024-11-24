@@ -41,24 +41,11 @@ This application is developed for testing purposes, focusing on **Structure**. T
 
 | Color             | Hex                                                                |
 | ----------------- | ------------------------------------------------------------------ |
-| Line Color (Light)| ![#2D3142](https://via.placeholder.com/10/2D3142?text=+) #2D3142   |
-| Line Color (Dark) | ![#61DAFB](https://via.placeholder.com/10/61DAFB?text=+) #61DAFB   |
-| Area Gradient (Light) | ![#2D3142](https://via.placeholder.com/10/2D3142?text=+) #2D3142 (15% opacity), ![#4F5D75](https://via.placeholder.com/10/4F5D75?text=+) #4F5D75 (10% opacity), ![#FFFFFF](https://via.placeholder.com/10/FFFFFF?text=+) #FFFFFF (5% opacity) |
-| Area Gradient (Dark)  | ![#61DAFB](https://via.placeholder.com/10/61DAFB?text=+) #61DAFB (20% opacity), ![#2C5364](https://via.placeholder.com/10/2C5364?text=+) #2C5364 (15% opacity), ![#000000](https://via.placeholder.com/10/000000?text=+) #000000 (10% opacity) |
-| Horizontal Grid Line Color (Light) | ![#E5E5E5](https://via.placeholder.com/10/E5E5E5?text=+) #E5E5E5 |
-| Horizontal Grid Line Color (Dark)  | ![#2C5364](https://via.placeholder.com/10/2C5364?text=+) #2C5364 |
-| Vertical Grid Line Color (Light)   | ![#D3D3D3](https://via.placeholder.com/10/D3D3D3?text=+) #D3D3D3 |
-| Vertical Grid Line Color (Dark)    | ![#203A43](https://via.placeholder.com/10/203A43?text=+) #203A43 |
 | Dot Main Color (Light) | ![#E5D9F6](https://via.placeholder.com/10/E5D9F6?text=+) #E5D9F6 |
 | Dot Main Color (Dark)  | ![#6200EE](https://via.placeholder.com/10/6200EE?text=+) #6200EE |
 | Dot Border Color (Light) | ![#FFFFFF](https://via.placeholder.com/10/FFFFFF?text=+) #FFFFFF |
 | Dot Border Color (Dark)  | ![#000000](https://via.placeholder.com/10/000000?text=+) #000000 |
 | Dot Secondary Color (Light) | ![#4F5D75](https://via.placeholder.com/10/4F5D75?text=+) #4F5D75 |
-| Dot Secondary Color (Dark)  | ![#2C5364](https://via.placeholder.com/10/2C5364?text=+) #2C5364 |
-| Filter Selected Color (Light) | ![#2D3142](https://via.placeholder.com/10/2D3142?text=+) #2D3142 |
-| Filter Selected Color (Dark)  | ![#61DAFB](https://via.placeholder.com/10/61DAFB?text=+) #61DAFB |
-| Filter Unselected Color (Light) | ![#E5E5E5](https://via.placeholder.com/10/E5E5E5?text=+) #E5E5E5 |
-| Filter Unselected Color (Dark)  | ![#203A43](https://via.placeholder.com/10/203A43?text=+) #203A43 |
 
 ## The Main Problems
 
