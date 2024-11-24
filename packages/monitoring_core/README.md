@@ -1,12 +1,13 @@
 # Monitoring Core
 
-This package, `monitoring_core`, provides various utilities and helper classes, including extensions for date and number manipulation, network client implementation using `Dio`, and models for handling energy data and metrics. This package aims to simplify development by providing common utilities for handling dates, numbers, HTTP requests, and energy monitoring.
+This package, `monitoring_core`, provides various utilities and helper classes, including extensions for date and number manipulation, network client implementation using `Dio`, models for handling energy data and metrics, and properties for managing UI tabs related to energy sources. This package aims to simplify development by providing common utilities for handling dates, numbers, HTTP requests, energy monitoring, and UI elements for energy-related features.
 
 ## Features Overview
 
 - **Date & Number Extensions**: Useful methods for working with `DateTime` and `num` to make code more concise and readable.
 - **Network Client with Dio**: A wrapper around the `Dio` package that makes HTTP requests easier and more structured.
 - **Energy Models**: Data models for representing energy types, monitoring metrics, and power values, making it easy to handle energy-related data.
+- **Tab Properties for Energy Types**: Properties for managing UI tabs related to energy sources, such as Solar, House, and Battery.
 
 ## Extensions
 
@@ -86,6 +87,7 @@ void main() async {
   } finally {
     client.dispose();
   }
+}
 ```
 
 ### DioOptions
@@ -191,9 +193,50 @@ void main() {
 }
 ```
 
+## Tab Properties for Energy Types
+
+### TabProperties
+
+The `TabProperties` abstract class defines properties for UI tabs, such as a title and an icon.
+
+### SolarTabProperties, HouseTabProperties, and BatteryTabProperties
+
+These classes implement `TabProperties` for specific energy types, each providing a title and an icon to be used in UI tabs.
+
+#### Example Usage
+
+```dart
+import 'tab_properties/solar_tab_properties.dart';
+import 'tab_properties/house_tab_properties.dart';
+import 'tab_properties/battery_tab_properties.dart';
+
+void main() {
+  SolarTabProperties solarTab = SolarTabProperties();
+  print(solarTab.title); // Output: "Solar"
+  print(solarTab.icon);  // Output: Icons.solar_power
+}
+```
+
+### EnergyTabPropertiesExtension
+
+The `EnergyTabPropertiesExtension` provides a convenient way to get `TabProperties` based on the `EnergyType`.
+
+#### Example Usage
+
+```dart
+import 'extensions/energy_tab_properties_extension.dart';
+import 'models/energy.dart';
+
+void main() {
+  EnergyType energy = EnergyType.solar;
+  TabProperties properties = energy.properties;
+  print(properties.title); // Output: "Solar"
+}
+```
+
 ## Conclusion
 
-The `monitoring_core` package is designed to make your Flutter development easier by providing a set of tools for dealing with dates, numbers, HTTP requests, and energy data. By incorporating useful extensions, leveraging the Dio package, and including data models for energy, it reduces the complexity of working with common functionality and helps keep your code clean and easy to maintain.
+The `monitoring_core` package is designed to make your Flutter development easier by providing a set of tools for dealing with dates, numbers, HTTP requests, energy data, and UI elements related to energy monitoring. By incorporating useful extensions, leveraging the Dio package, and including data models for energy, it reduces the complexity of working with common functionality and helps keep your code clean and easy to maintain.
 
 Feel free to explore and contribute to the package if you'd like to add more features or improve existing ones.
 

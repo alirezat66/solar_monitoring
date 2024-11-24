@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:monitoring_models/src/tab_properties/tab_properties.dart';
+import 'tab_properties.dart';
 
 class BatteryTabProperties implements TabProperties {
   @override

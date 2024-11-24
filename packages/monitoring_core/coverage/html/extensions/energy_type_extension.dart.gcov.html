@@ -4,7 +4,7 @@
 
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <title>LCOV - lcov.info - extensions/date_extension.dart</title>
+  <title>LCOV - lcov.info - extensions/energy_type_extension.dart</title>
   <link rel="stylesheet" type="text/css" href="../gcov.css">
 </head>
 
@@ -19,7 +19,7 @@
                 <table cellpadding=1 border=0 width="100%">
           <tr>
             <td width="10%" class="headerItem">Current view:</td>
-            <td width="10%" class="headerValue"><a href="../index.html" title="Click to go to top-level">top level</a> - <a href="index.html" title="Click to go to directory extensions">extensions</a> - date_extension.dart</td>
+            <td width="10%" class="headerValue"><a href="../index.html" title="Click to go to top-level">top level</a> - <a href="index.html" title="Click to go to directory extensions">extensions</a> - energy_type_extension.dart</td>
             <td width="5%"></td>
             <td width="5%"></td>
             <td width="5%" class="headerCovTableHead">Coverage</td>
@@ -32,8 +32,8 @@
             <td></td>
             <td class="headerItem">Lines:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
-            <td class="headerCovTableEntry">5</td>
-            <td class="headerCovTableEntry">5</td>
+            <td class="headerCovTableEntry">4</td>
+            <td class="headerCovTableEntry">4</td>
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
@@ -60,17 +60,20 @@
               <td>
 <pre class="sourceHeading">            Line data    Source code</pre>
 <pre class="source">
-<span id="L1"><span class="lineNum">       1</span>              : extension DateExtension on DateTime {</span>
-<span id="L2"><span class="lineNum">       2</span>              :   /// Formats the current [DateTime] instance into a `YYYY-MM-DD` string.</span>
-<span id="L3"><span class="lineNum">       3</span>              : </span>
-<span id="L4"><span class="lineNum">       4</span> <span class="tlaGNC">           1 :   String get formattedDate =&gt;</span></span>
-<span id="L5"><span class="lineNum">       5</span> <span class="tlaGNC">           8 :       '$year-${month.toString().padLeft(2, '0')}-${day.toString().padLeft(2, '0')}';</span></span>
-<span id="L6"><span class="lineNum">       6</span>              : </span>
-<span id="L7"><span class="lineNum">       7</span> <span class="tlaGNC">           1 :   bool get isToday {</span></span>
-<span id="L8"><span class="lineNum">       8</span> <span class="tlaGNC">           1 :     final now = DateTime.now();</span></span>
-<span id="L9"><span class="lineNum">       9</span> <span class="tlaGNC">           9 :     return year == now.year &amp;&amp; month == now.month &amp;&amp; day == now.day;</span></span>
-<span id="L10"><span class="lineNum">      10</span>              :   }</span>
-<span id="L11"><span class="lineNum">      11</span>              : }</span>
+<span id="L1"><span class="lineNum">       1</span>              : </span>
+<span id="L2"><span class="lineNum">       2</span>              : import 'package:monitoring_core/src/models/energy/energy_type.dart';</span>
+<span id="L3"><span class="lineNum">       3</span>              : import 'package:monitoring_core/src/models/tab_properties/battery_tab_properties.dart';</span>
+<span id="L4"><span class="lineNum">       4</span>              : import 'package:monitoring_core/src/models/tab_properties/house_tab_properties.dart';</span>
+<span id="L5"><span class="lineNum">       5</span>              : import 'package:monitoring_core/src/models/tab_properties/solar_tab_properties.dart';</span>
+<span id="L6"><span class="lineNum">       6</span>              : import 'package:monitoring_core/src/models/tab_properties/tab_properties.dart';</span>
+<span id="L7"><span class="lineNum">       7</span>              : </span>
+<span id="L8"><span class="lineNum">       8</span>              : extension EnergyTabPropertiesExtension on EnergyType {</span>
+<span id="L9"><span class="lineNum">       9</span> <span class="tlaGNC">           1 :   TabProperties get properties =&gt; switch (this) {</span></span>
+<span id="L10"><span class="lineNum">      10</span> <span class="tlaGNC">           2 :         EnergyType.solar =&gt; SolarTabProperties(),</span></span>
+<span id="L11"><span class="lineNum">      11</span> <span class="tlaGNC">           2 :         EnergyType.house =&gt; HouseTabProperties(),</span></span>
+<span id="L12"><span class="lineNum">      12</span> <span class="tlaGNC">           2 :         EnergyType.battery =&gt; BatteryTabProperties(),</span></span>
+<span id="L13"><span class="lineNum">      13</span>              :       };</span>
+<span id="L14"><span class="lineNum">      14</span>              : }</span>
         </pre>
               </td>
             </tr>

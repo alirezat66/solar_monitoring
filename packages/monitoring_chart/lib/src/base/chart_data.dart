@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:monitoring_chart/src/base/interval_model.dart';
 import 'package:monitoring_chart/src/extensions/monitoring_model_extension.dart';
-import 'package:monitoring_models/monitoring_models.dart';
+import 'package:monitoring_core/monitoring_core.dart';
 
 class ChartData {
   final List<MonitoringModel> models;

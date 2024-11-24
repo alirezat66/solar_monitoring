@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:monitoring_chart/monitoring_chart.dart';
 import 'package:monitoring_chart/src/config/chart_grid_config.dart';
 import 'package:monitoring_chart/src/config/chart_line_config.dart';
-import 'package:monitoring_models/monitoring_models.dart';
+import 'package:monitoring_core/monitoring_core.dart';
 
 class EnergyLineChart extends StatelessWidget {
   final List<MonitoringModel> data;

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:monitoring_models/monitoring_models.dart';
-import 'package:monitoring_models/src/tab_properties/battery_tab_properties.dart';
-import 'package:monitoring_models/src/tab_properties/house_tab_properties.dart';
-import 'package:monitoring_models/src/tab_properties/solar_tab_properties.dart';
+import 'package:monitoring_core/monitoring_core.dart';
+import 'package:monitoring_core/src/extensions/energy_type_extension.dart';
+import 'package:monitoring_core/src/models/tab_properties/battery_tab_properties.dart';
+import 'package:monitoring_core/src/models/tab_properties/house_tab_properties.dart';
+import 'package:monitoring_core/src/models/tab_properties/solar_tab_properties.dart';
 
 void main() {
   group('EnergyType Tab Properties', () {
