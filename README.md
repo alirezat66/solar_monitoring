@@ -58,4 +58,16 @@ In other hand I tried to make application independent to Chart Package, it means
 
 The `monitoring_core` package provides various utilities and helper classes, including extensions for date and number manipulation, network client implementation using `Dio`, models for handling energy data and metrics, and properties for managing UI tabs related to energy sources.
 
-#### Example Usage
+[Read more](packages/monitoring_core/README.md)
+
+### monitoring_repository
+
+The `monitoring_repository` package provides data to us and cache them.
+
+[Read more](packages/monitoring_repository/README.md)
+
+### monitoring_repository
+
+The `monitoring_chart` package provide line chart to us. we just need to send data and unit to this package.
+
+[Read more](packages/monitoring_chart/README.md)
