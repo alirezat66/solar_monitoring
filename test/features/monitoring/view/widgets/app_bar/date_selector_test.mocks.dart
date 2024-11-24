@@ -153,6 +153,7 @@ class MockMonitoringCubit extends _i1.Mock implements _i2.MonitoringCubit {
 /// A class which mocks [MonitoringState].
 ///
 /// See the documentation for Mockito's code generation for more information.
+// ignore: must_be_immutable
 class MockMonitoringState extends _i1.Mock implements _i2.MonitoringState {
   MockMonitoringState() {
     _i1.throwOnMissingStub(this);
