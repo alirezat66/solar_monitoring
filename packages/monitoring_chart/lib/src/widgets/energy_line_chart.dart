@@ -21,9 +21,16 @@ class EnergyLineChart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final chartData = ChartData.fromMonitoringModelList(data, displayUnit: unit, minX: minX, maxX: maxX);
+    final chartData = ChartData.fromMonitoringModelList(data,
+        displayUnit: unit, minX: minX, maxX: maxX);
     final theme = context.chartTheme;
-    final config = ChartConfig(context, minX: minX, maxX: maxX, unit: unit);
+    final config = ChartConfig(
+      context,
+      minX: minX,
+      maxX: maxX,
+      unit: unit,
+      leftInterval: chartData.interval,
+    );
     final lineConfig = ChartLineConfig(spots: chartData.spots, theme: theme);
     final gridConfig = ChartGridConfig(theme: theme);
 

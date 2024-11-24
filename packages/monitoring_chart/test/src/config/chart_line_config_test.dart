@@ -8,13 +8,13 @@ void main() {
     late ChartLineConfig chartLineConfig;
 
     test('Test ChartLineConfig LineData generation', () {
-      const theme = ChartThemeExtension.light;
+      final theme = ChartTheme.light;
       const spots = [
         FlSpot(0, 1),
         FlSpot(1, 3),
         FlSpot(2, 5),
       ];
-      chartLineConfig = const ChartLineConfig(spots: spots, theme: theme);
+      chartLineConfig =  ChartLineConfig(spots: spots, theme: theme);
 
       final lineData = chartLineConfig.buildLineData();
       expect(lineData, isA<LineChartBarData>());

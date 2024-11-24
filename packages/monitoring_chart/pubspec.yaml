@@ -11,10 +11,9 @@ dependencies:
     sdk: flutter
   monitoring_core:
     path: ../monitoring_core
-  monitoring_models:
-    path: ../monitoring_models
   fl_chart: ^0.69.0
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^4.0.0
+  coverage: ^1.11.0

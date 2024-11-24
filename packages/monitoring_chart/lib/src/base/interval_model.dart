@@ -19,19 +19,11 @@ class IntervalModel {
     assert(lowerBound <= upperBound,
         'Lower bound must be smaller than upper bound');
 
-    final double paddedLower = lowerBound * 0.99;
-    final double paddedUpper = upperBound * 1.01;
+    final double paddedLower = lowerBound * 0.995;
+    final double paddedUpper = upperBound * 1.005;
     final range = paddedUpper - paddedLower;
 
-    if (range == 0) {
-      return IntervalModel(
-        interval: 1,
-        lowerBound: paddedLower,
-        upperBound: paddedUpper,
-      );
-    }
-
-    double interval = range / 5;
+    double interval = range / 5; 
     final magnitude = pow(10, (log(interval) / ln10).floor()).toDouble();
     final normalized = interval / magnitude;
 
@@ -49,10 +41,10 @@ class IntervalModel {
   }
 
   static double _calculateNiceInterval(double normalized, double magnitude) {
-    if (normalized <= 1) return magnitude;
-    if (normalized <= 2) return 2 * magnitude;
+    // Adjust thresholds for more consistent intervals
+    if (normalized <= 1.2) return magnitude;
+    if (normalized <= 2.5) return 2 * magnitude;
     if (normalized <= 5) return 5 * magnitude;
-    if (normalized <= 7.5) return 5 * magnitude; // 10 * magnitude / 2
     return 10 * magnitude;
   }
 }

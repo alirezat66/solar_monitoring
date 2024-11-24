@@ -11,7 +11,7 @@ void main() {
 
       expect(interval.lowerBound, lessThanOrEqualTo(0));
       expect(interval.upperBound, greaterThanOrEqualTo(100));
-      expect(interval.interval, equals(50.0));
+      expect(interval.interval, equals(20.0));
     });
 
     test('throws assertion error when bounds are invalid', () {

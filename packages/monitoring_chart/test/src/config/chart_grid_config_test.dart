@@ -8,8 +8,8 @@ void main() {
     late ChartGridConfig chartGridConfig;
 
     test('Test ChartGridConfig GridData generation', () {
-      const theme = ChartThemeExtension.light;
-      chartGridConfig = const ChartGridConfig(theme: theme);
+      final theme = ChartTheme.light;
+      chartGridConfig = ChartGridConfig(theme: theme);
 
       final gridData = chartGridConfig.buildGridData();
       expect(gridData, isA<FlGridData>());
